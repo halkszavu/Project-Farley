@@ -15,19 +15,8 @@ namespace WebApi.DAL
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<Note> Notes { get; set; }
 
-        private ILoggerFactory GetLoggerFactory()
-        {
-            IServiceCollection serviceCollection = new ServiceCollection();
-            serviceCollection.AddLogging(builder => builder.AddConsole()
-                                                           .AddFilter(ll => ll == LogLevel.Debug));
-            return serviceCollection.BuildServiceProvider()
-                .GetService<ILoggerFactory>();
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(connection);
-        }
+        public VelhoContext(DbContextOptions<VelhoContext> options) 
+            : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
