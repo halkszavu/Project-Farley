@@ -1,10 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WebApi.Bll.Dtos
 {
-    class Note
+    public class Note
     {
+        public int ID { get; set; }
+        public string Notes { get; set; }
+        public DateTime Time { get; set; }
+
+        public int PersonID { get; set; }
+        public Person Person { get; set; }
     }
 }
