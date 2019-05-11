@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using WebApi.Bll;
+using AutoMapper;
 using WebApi.DAL;
 
 namespace WebApi.API
@@ -33,6 +35,12 @@ namespace WebApi.API
                 o.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
                 .ConfigureWarnings(
                     c => c.Throw(RelationalEventId.QueryClientEvaluationWarning)));
+
+            //services.AddAutoMapper(cfg =>
+            //{
+                
+            //}
+            //)
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
