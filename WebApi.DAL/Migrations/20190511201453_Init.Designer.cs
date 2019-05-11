@@ -10,7 +10,7 @@ using WebApi.DAL;
 namespace WebApi.DAL.Migrations
 {
     [DbContext(typeof(VelhoContext))]
-    [Migration("20190511132655_Init")]
+    [Migration("20190511201453_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,21 @@ namespace WebApi.DAL.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Meetings");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Date = new DateTime(2019, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Notes = "Zenekar"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            Date = new DateTime(2019, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Notes = "Házi átvétel",
+                            Place = "BME L épület"
+                        });
                 });
 
             modelBuilder.Entity("WebApi.Entities.Note", b =>
@@ -44,17 +59,29 @@ namespace WebApi.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Notes");
+                    b.Property<string>("Notes")
+                        .IsRequired();
 
                     b.Property<int>("PersonID");
 
-                    b.Property<DateTime>("Time");
+                    b.Property<DateTime>("Time")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(new DateTime(2019, 5, 11, 22, 14, 53, 713, DateTimeKind.Local).AddTicks(8878));
 
                     b.HasKey("ID");
 
                     b.HasIndex("PersonID");
 
                     b.ToTable("Notes");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            Notes = "barbarbarbar",
+                            PersonID = 1,
+                            Time = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("WebApi.Entities.Person", b =>
@@ -68,7 +95,8 @@ namespace WebApi.DAL.Migrations
                     b.Property<string>("MartialState")
                         .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<string>("SiblingState")
                         .IsRequired();
@@ -76,6 +104,24 @@ namespace WebApi.DAL.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Populii");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MartialState = "Single",
+                            Name = "Bálint",
+                            SiblingState = "Middle"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MartialState = "Single",
+                            Name = "Zsófia",
+                            SiblingState = "Eldest"
+                        });
                 });
 
             modelBuilder.Entity("WebApi.Entities.PersonMeeting", b =>
@@ -95,6 +141,20 @@ namespace WebApi.DAL.Migrations
                     b.HasIndex("PersonID");
 
                     b.ToTable("PersonMeeting");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            MeetingID = 1,
+                            PersonID = 1
+                        },
+                        new
+                        {
+                            ID = 2,
+                            MeetingID = 1,
+                            PersonID = 2
+                        });
                 });
 
             modelBuilder.Entity("WebApi.Entities.Note", b =>

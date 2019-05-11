@@ -29,7 +29,7 @@ namespace WebApi.DAL.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     DateOfBirth = table.Column<DateTime>(nullable: false),
                     MartialState = table.Column<string>(nullable: false),
                     SiblingState = table.Column<string>(nullable: false)
@@ -45,8 +45,8 @@ namespace WebApi.DAL.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Notes = table.Column<string>(nullable: true),
-                    Time = table.Column<DateTime>(nullable: false),
+                    Notes = table.Column<string>(nullable: false),
+                    Time = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2019, 5, 11, 22, 14, 53, 713, DateTimeKind.Local).AddTicks(8878)),
                     PersonID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -85,6 +85,39 @@ namespace WebApi.DAL.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Meetings",
+                columns: new[] { "ID", "Date", "Notes", "Place" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2019, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Zenekar", null },
+                    { 2, new DateTime(2019, 5, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "Házi átvétel", "BME L épület" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Populii",
+                columns: new[] { "ID", "DateOfBirth", "MartialState", "Name", "SiblingState" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Single", "Bálint", "Middle" },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Single", "Zsófia", "Eldest" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Notes",
+                columns: new[] { "ID", "Notes", "PersonID" },
+                values: new object[] { 1, "barbarbarbar", 1 });
+
+            migrationBuilder.InsertData(
+                table: "PersonMeeting",
+                columns: new[] { "ID", "MeetingID", "PersonID" },
+                values: new object[] { 1, 1, 1 });
+
+            migrationBuilder.InsertData(
+                table: "PersonMeeting",
+                columns: new[] { "ID", "MeetingID", "PersonID" },
+                values: new object[] { 2, 1, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notes_PersonID",

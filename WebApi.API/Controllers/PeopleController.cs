@@ -15,13 +15,8 @@ namespace WebApi.API.Controllers
     [ApiController]
     public class PeopleController : ControllerBase
     {
-        private readonly VelhoContext context;
+        //private readonly VelhoContext context;
         private readonly IPersonService personService;
-
-        public PeopleController(VelhoContext context)
-        {
-            this.context = context;
-        }
 
         public PeopleController(IPersonService service)
         {
@@ -39,7 +34,7 @@ namespace WebApi.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Person>> GetPerson(int id)
         {
-            var person = await context.Populii.FindAsync(id);
+            var person = personService.GetPerson(id);
 
             if (person == null)
             {
@@ -49,65 +44,60 @@ namespace WebApi.API.Controllers
             return person;
         }
 
-        // PUT: api/People/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutPerson(int id, Person person)
-        {
-            if (id != person.ID)
-            {
-                return BadRequest();
-            }
+        //// PUT: api/People/5
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutPerson(int id, Person person)
+        //{
+        //    if (id != person.ID)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            context.Entry(person).State = EntityState.Modified;
+        //    context.Entry(person).State = EntityState.Modified;
 
-            try
-            {
-                await context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PersonExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!PersonExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
-        // POST: api/People
-        [HttpPost]
-        public async Task<ActionResult<Person>> PostPerson(Person person)
-        {
-            context.Populii.Add(person);
-            await context.SaveChangesAsync();
+        //// POST: api/People
+        //[HttpPost]
+        //public async Task<ActionResult<Person>> PostPerson(Person person)
+        //{
+        //    context.Populii.Add(person);
+        //    await context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPerson", new { id = person.ID }, person);
-        }
+        //    return CreatedAtAction("GetPerson", new { id = person.ID }, person);
+        //}
 
-        // DELETE: api/People/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Person>> DeletePerson(int id)
-        {
-            var person = await context.Populii.FindAsync(id);
-            if (person == null)
-            {
-                return NotFound();
-            }
+        //// DELETE: api/People/5
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<Person>> DeletePerson(int id)
+        //{
+        //    var person = await context.Populii.FindAsync(id);
+        //    if (person == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            context.Populii.Remove(person);
-            await context.SaveChangesAsync();
+        //    context.Populii.Remove(person);
+        //    await context.SaveChangesAsync();
 
-            return person;
-        }
-
-        private bool PersonExists(int id)
-        {
-            return context.Populii.Any(e => e.ID == id);
-        }
+        //    return person;
+        //}
     }
 }
