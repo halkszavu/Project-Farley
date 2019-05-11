@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using WebApi.Entities;
@@ -31,6 +32,18 @@ namespace WebApi.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+
+            var martialConverter = new EnumToStringConverter<MartialState>();
+            modelBuilder
+                .Entity<Person>()
+                .Property(e => e.MartialState)
+                .HasConversion(martialConverter);
+            var siblingConverter = new EnumToStringConverter<SiblingState>();
+            modelBuilder
+                .Entity<Person>()
+                .Property(e => e.SiblingState)
+                .HasConversion(siblingConverter);
         }
     }
 }

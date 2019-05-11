@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace WebApi.Entities
 {
@@ -12,6 +11,6 @@ namespace WebApi.Entities
         public MartialState MartialState { get; set; }
         public SiblingState SiblingState { get; set; }
 
-
+        public ICollection<PersonMeeting> PersonMeetings { get; } = new List<PersonMeeting>();
     }
 }

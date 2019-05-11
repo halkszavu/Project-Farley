@@ -2,19 +2,19 @@
 {
     public enum MartialState
     {
-        Single,
-        Married,
-        Other,
-        NA
+        NA = 1,
+        Single = 2,
+        Married = 4,
+        Other = 8,
     }
 
     public enum SiblingState
     {
-        Eldest,
-        Younges,
-        Middle,
-        Only_Child,
-        Other,
-        NA
+        NA = 1,
+        Eldest = 2,
+        Younges = 4,
+        Middle = 8,
+        Only_Child = 16,
+        Other = 32,
     }
 }

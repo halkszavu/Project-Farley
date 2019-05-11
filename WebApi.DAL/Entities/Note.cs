@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace WebApi.Entities
 {
@@ -9,5 +7,8 @@ namespace WebApi.Entities
         public int ID { get; set; }
         public string Notes { get; set; }
         public DateTime Time { get; set; }
+
+        public int PersonID { get; set; }
+        public Person Person { get; set; }
     }
 }

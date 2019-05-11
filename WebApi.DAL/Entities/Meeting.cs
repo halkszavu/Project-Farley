@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace WebApi.Entities
 {
@@ -9,7 +8,8 @@ namespace WebApi.Entities
         public int ID { get; set; }
         public DateTime Date { get; set; }
         public string Place { get; set; }
+        public string Notes { get; set; }
 
-
+        public ICollection<PersonMeeting> PersonMeetings { get; } = new List<PersonMeeting>();
     }
 }
