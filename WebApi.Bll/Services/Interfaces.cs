@@ -9,6 +9,9 @@ namespace WebApi.Bll.Services
     {
         Person GetPerson(int personId);
         IEnumerable<Person> GetPersons();
+        Person InsertPerson(Person newPerson);
+        void UpdatePerson(int personId, Person updatedPerson);
+        void DeletePerson(int personId);
     }
 
     public interface IMeetingService

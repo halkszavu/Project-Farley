@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,89 +16,47 @@ namespace WebApi.API.Controllers
     [ApiController]
     public class PeopleController : ControllerBase
     {
-        //private readonly VelhoContext context;
         private readonly IPersonService personService;
+        private readonly IMapper mapper;
 
-        public PeopleController(IPersonService service)
+        public PeopleController(IPersonService service, IMapper cartographer)
         {
             personService = service;
+            mapper = cartographer;
         }
 
         // GET: api/People
         [HttpGet]
-        public IEnumerable<Person> Get()
+        public ActionResult< IEnumerable<Person> >Get()
         {
-            return personService.GetPersons();
+            return mapper.Map<List<Person>>(personService.GetPersons()).ToList();
         }
 
         // GET: api/People/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> GetPerson(int id)
+        public async Task<ActionResult<Person>> Get(int id)
         {
-            var person = personService.GetPerson(id);
-
-            if (person == null)
-            {
-                return NotFound();
-            }
-
-            return person;
+            return mapper.Map<Person>(personService.GetPerson(id));
         }
 
-        //// PUT: api/People/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutPerson(int id, Person person)
-        //{
-        //    if (id != person.ID)
-        //    {
-        //        return BadRequest();
-        //    }
+        [HttpPost]
+        public ActionResult<Person> Post([FromBody] Person person)
+        {
+            var created = personService
+                .InsertPerson(mapper.Map<Entities.Person>(person));
 
-        //    context.Entry(person).State = EntityState.Modified;
+            return CreatedAtAction(
+                        nameof(Get),
+                        new { id = created.ID },
+                        mapper.Map<Person>(created)
+                );
+        }
 
-        //    try
-        //    {
-        //        await context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!PersonExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        //// POST: api/People
-        //[HttpPost]
-        //public async Task<ActionResult<Person>> PostPerson(Person person)
-        //{
-        //    context.Populii.Add(person);
-        //    await context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetPerson", new { id = person.ID }, person);
-        //}
-
-        //// DELETE: api/People/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Person>> DeletePerson(int id)
-        //{
-        //    var person = await context.Populii.FindAsync(id);
-        //    if (person == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    context.Populii.Remove(person);
-        //    await context.SaveChangesAsync();
-
-        //    return person;
-        //}
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] Person person)
+        {
+            personService.UpdatePerson(id, mapper.Map<Entities.Person>(person));
+            return NoContent();
+        }
     }
 }

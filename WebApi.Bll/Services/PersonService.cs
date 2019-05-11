@@ -18,6 +18,12 @@ namespace WebApi.Bll.Services
             velho = context;
         }
 
+        public void DeletePerson(int personId)
+        {
+            velho.Populii.Remove(new Person { ID = personId });
+            velho.SaveChanges();
+        }
+
         public Person GetPerson(int personId)
         {
             return velho.Populii
@@ -35,6 +41,23 @@ namespace WebApi.Bll.Services
                 .ToList();
 
             return persons;
+        }
+
+        public Person InsertPerson(Person newPerson)
+        {
+            velho.Populii.Add(newPerson);
+
+            velho.SaveChanges();
+
+            return newPerson;
+        }
+
+        public void UpdatePerson(int personId, Person updatedPerson)
+        {
+            updatedPerson.ID = personId;
+            var entry = velho.Attach(updatedPerson);
+            entry.State = EntityState.Modified;
+            velho.SaveChanges();
         }
     }
 }
