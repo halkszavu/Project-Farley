@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WebApi.DAL.Entities
+namespace WebApi.Entities
 {
-    class Person
+    public class Person
     {
 
     }
