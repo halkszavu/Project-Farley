@@ -8,7 +8,7 @@ namespace WebApi.DAL
 {
     public class VelhoContext : DbContext
     {
-        const string connection = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        const string connection = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FarleyDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         public DbSet<Person> Populii { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
