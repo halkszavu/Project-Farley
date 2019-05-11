@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using WebApi.Bll.Dtos;
 using AutoMapper;
 using WebApi.DAL;
+using WebApi.Bll.Services;
 
 namespace WebApi.API
 {
@@ -29,13 +30,16 @@ namespace WebApi.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).
+                AddJsonOptions(
+                    json => json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<VelhoContext>(o =>
                 o.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
                 .ConfigureWarnings(
                     c => c.Throw(RelationalEventId.QueryClientEvaluationWarning)));
 
+            services.AddTransient<IPersonService, PersonService>();
 
 #pragma warning disable CS0618 // Type or member is obsolete
             services.AddAutoMapper(cfg =>

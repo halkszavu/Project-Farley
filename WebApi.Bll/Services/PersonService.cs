@@ -9,7 +9,7 @@ using WebApi.Entities;
 
 namespace WebApi.Bll.Services
 {
-    class PersonService : IPersonService
+    public class PersonService : IPersonService
     {
         private readonly VelhoContext velho;
 
@@ -25,6 +25,16 @@ namespace WebApi.Bll.Services
                 .ThenInclude(pm => pm.Meeting)
                 .SingleOrDefault(p => p.ID == personId) ?? throw new EntityNotFoundException("Nem található ilyen személy!");
                 
+        }
+
+        public IEnumerable<Person> GetPersons()
+        {
+            var persons = velho.Populii
+                .Include(p => p.PersonMeetings)
+                    .ThenInclude(pm => pm.Meeting)
+                .ToList();
+
+            return persons;
         }
     }
 }

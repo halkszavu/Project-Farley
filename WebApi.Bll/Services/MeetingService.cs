@@ -8,7 +8,7 @@ using WebApi.Bll.Exceptions;
 
 namespace WebApi.Bll.Services
 {
-    class MeetingService : IMeetingService
+    public class MeetingService : IMeetingService
     {
         private readonly VelhoContext velho;
 

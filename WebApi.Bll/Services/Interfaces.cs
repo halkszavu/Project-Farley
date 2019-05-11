@@ -8,6 +8,7 @@ namespace WebApi.Bll.Services
     public interface IPersonService
     {
         Person GetPerson(int personId);
+        IEnumerable<Person> GetPersons();
     }
 
     public interface IMeetingService
