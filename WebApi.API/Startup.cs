@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using WebApi.Bll;
+using WebApi.Bll.Dtos;
 using AutoMapper;
 using WebApi.DAL;
 
@@ -36,11 +36,18 @@ namespace WebApi.API
                 .ConfigureWarnings(
                     c => c.Throw(RelationalEventId.QueryClientEvaluationWarning)));
 
-            //services.AddAutoMapper(cfg =>
-            //{
-                
-            //}
-            //)
+
+#pragma warning disable CS0618 // Type or member is obsolete
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.CreateMap<Entities.Person, Person>()
+                .AfterMap((p, dto, ctx) =>
+                    dto.Meetings = p.PersonMeetings.Select(pm =>
+                        ctx.Mapper.Map<Meeting>(pm.Meeting)).ToList()).ReverseMap();
+                cfg.CreateMap<Entities.Meeting, Meeting>().ReverseMap();
+                cfg.CreateMap<Entities.Note, Note>().ReverseMap();
+            });
+#pragma warning restore CS0618 // Type or member is obsolete
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using WebApi.Entities;
 
 namespace WebApi.Bll.Dtos
@@ -10,5 +11,7 @@ namespace WebApi.Bll.Dtos
         public DateTime DateOfBirth { get; set; }
         public MartialState MartialState { get; set; }
         public SiblingState SiblingState { get; set; }
+
+        public List<Meeting> Meetings { get; set; }
     }
 }
