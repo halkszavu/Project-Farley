@@ -39,9 +39,9 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult< IEnumerable<Person> >Get()
+        public ActionResult<IEnumerable<Person> >Get()
         {
-            return mapper.Map<List<Person>>(personService.GetPersons()).ToList();
+            return mapper.Map<List<Person>>(personService.GetPersonsAsync()).ToList();
         }
 
         /// <summary>
@@ -62,10 +62,10 @@ namespace WebApi.API.Controllers
         /// <param name="person"></param>
         /// <returns>Person to insert into the database</returns>
         [HttpPost]
-        public ActionResult<Person> Post([FromBody] Person person)
+        public async Task<ActionResult<Person>> Post([FromBody] Person person)
         {
-            var created = personService
-                .InsertPerson(mapper.Map<Entities.Person>(person));
+            var created = await personService
+                .InsertPersonAsync(mapper.Map<Entities.Person>(person));
 
             return CreatedAtAction(
                         nameof(Get),
@@ -81,9 +81,9 @@ namespace WebApi.API.Controllers
         /// <param name="person">Person to update to</param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Person person)
+        public async Task<IActionResult> Put(int id, [FromBody] Person person)
         {
-            personService.UpdatePerson(id, mapper.Map<Entities.Person>(person));
+            await personService.UpdatePersonAsync(id, mapper.Map<Entities.Person>(person));
             return NoContent();
         }
     }

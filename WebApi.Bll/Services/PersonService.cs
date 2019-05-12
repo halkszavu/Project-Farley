@@ -14,10 +14,7 @@ namespace WebApi.Bll.Services
     {
         private readonly VelhoContext velho;
 
-        public PersonService(VelhoContext context)
-        {
-            velho = context;
-        }
+        public PersonService(VelhoContext context) => velho = context;
 
         public void DeletePerson(int personId)
         {
@@ -25,41 +22,23 @@ namespace WebApi.Bll.Services
             velho.SaveChanges();
         }
 
-        public Person GetPerson(int personId)
-        {
-            return velho.Populii
-                .SingleOrDefault(p => p.ID == personId) ?? throw new EntityNotFoundException("Nem található ilyen személy!");
-                
-        }
+        public async Task<Person> GetPersonAsync(int personId) => await velho.Populii.SingleOrDefaultAsync(p => p.ID == personId) ?? throw new EntityNotFoundException("Nem található ilyen személy!");
 
-        public async Task<Person> GetPersonAsync(int personId)
-        {
-            return await velho.Populii.SingleOrDefaultAsync(p => p.ID == personId) ?? throw new EntityNotFoundException("Nem található ilyen személy!");
-        }
+        public async Task<IEnumerable<Person>> GetPersonsAsync() => await velho.Populii.ToListAsync();
 
-        public IEnumerable<Person> GetPersons()
-        {
-            var persons = velho.Populii
-                .ToList();
-
-            return persons;
-        }
-
-        public Person InsertPerson(Person newPerson)
+        public async Task<Person> InsertPersonAsync(Person newPerson)
         {
             velho.Populii.Add(newPerson);
-
-            velho.SaveChanges();
-
+            await velho.SaveChangesAsync();
             return newPerson;
         }
 
-        public void UpdatePerson(int personId, Person updatedPerson)
+        public async Task UpdatePersonAsync(int personId, Person updatedPerson)
         {
             updatedPerson.ID = personId;
             var entry = velho.Attach(updatedPerson);
             entry.State = EntityState.Modified;
-            velho.SaveChanges();
+            await velho.SaveChangesAsync();
         }
     }
 }

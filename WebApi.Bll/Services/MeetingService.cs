@@ -5,6 +5,7 @@ using System.Text;
 using WebApi.DAL;
 using WebApi.Entities;
 using WebApi.Bll.Exceptions;
+using System.Threading.Tasks;
 
 namespace WebApi.Bll.Services
 {
@@ -12,10 +13,7 @@ namespace WebApi.Bll.Services
     {
         private readonly VelhoContext velho;
 
-        public MeetingService(VelhoContext context)
-        {
-            velho = context;
-        }
+        public MeetingService(VelhoContext context) => velho = context;
 
         public Meeting CreateMeeting(int personId, Meeting meeting)
         {
@@ -30,8 +28,35 @@ namespace WebApi.Bll.Services
             });
 
             velho.SaveChanges();
-
             return meeting;
+        }
+
+        public async Task<Meeting> CreateMeetingAsync(int personId, Meeting meeting)
+        {
+            var person = await velho.Populii
+                .Include(p => p.PersonMeetings)
+                .SingleOrDefaultAsync(p => p.ID == personId) ?? throw new EntityNotFoundException("Nem található ilyen személy!");
+
+            person.PersonMeetings.Add(new PersonMeeting()
+            {
+                Person = person,
+                Meeting = meeting
+            });
+
+            await velho.SaveChangesAsync();
+            return meeting;
+        }
+
+        public async Task<Meeting> GetMeetingAsync(int meetingId) => await velho.Meetings.SingleOrDefaultAsync(m => m.ID == meetingId) ?? throw new EntityNotFoundException("Nem található ilyen találkozás!");
+
+        public async Task<IEnumerable<Meeting>> GetMeetingsAsync() => await velho.Meetings.ToListAsync();
+
+        public async Task UpdateMeetingAsync(int meetingId, Meeting updatedMeeting)
+        {
+            updatedMeeting.ID = meetingId;
+            var entry = velho.Attach(updatedMeeting);
+            entry.State = EntityState.Modified;
+            await velho.SaveChangesAsync();
         }
     }
 }
