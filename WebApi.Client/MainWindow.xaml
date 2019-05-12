@@ -1,0 +1,73 @@
+﻿<Window x:Class="WebApi.Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WebApi.Client"
+        mc:Ignorable="d"
+        Title="Farley aktakezelő" Height="600" Width="600" Foreground="#FF2332FF" Background="#FFFFD89F" BorderBrush="White" MinWidth="475" MinHeight="500">
+    <Grid>
+        <TabControl x:Name="tabControl" Margin="0,0,0,0" Grid.ColumnSpan="3">
+            <TabItem Header="Személy">
+                <Grid Background="#FFFFFCF7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="153*"/>
+                        <ColumnDefinition Width="153*"/>
+                        <ColumnDefinition Width="277*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="224"/>
+                        <RowDefinition/>
+
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="PersonNameTextBox" Height="23" Margin="0" TextWrapping="Wrap" Text="Vezetéknév Adott név Keresztnév" VerticalAlignment="Top" BorderBrush="#FF320A0A" Grid.ColumnSpan="3"/>
+                    <GroupBox Grid.Column="2" Header="Születési dátum" Margin="2,27,2,2">
+                        <Calendar Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,0,-12"/>
+                    </GroupBox>
+                    <GroupBox x:Name="MartialStateGroupBox" Header="Családi státusz" Margin="10,35,5,10">
+                        <StackPanel>
+                            <RadioButton Name="MartialStateNARadioButton" Content="N/A" IsChecked="True"/>
+                            <RadioButton Name="MartialStateSingleRadioButton" Content="Egyedülálló" />
+                            <RadioButton Name="MartialStateMarriedRadioButton" Content="Házas"/>
+                            <RadioButton Name="MartilaStateOtherRadioButton" Content="Egyéb"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox x:Name="SiblingStateGroupBox" Header="Testvéri státusz" Margin="5,35,5,10" Grid.Column="1">
+                        <StackPanel>
+                            <RadioButton Name="SiblingStateNARadioButton" Content="N/A" IsChecked="True"/>
+                            <RadioButton Name="SiblingStateEldestRadioButton" Content="Legidősebb"/>
+                            <RadioButton Name="SiblingStateMiddleRadioButton" Content="Középső"/>
+                            <RadioButton Name="SiblingStateYoungestRadioButton" Content="Legfiatalabb"/>
+                            <RadioButton Name="SiblingStateOnlyChildRadioButton" Content="Egyke"/>
+                            <RadioButton Name="SiblingStateOtherRadioButton" Content="Egyéb"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Jegyzetek" VerticalAlignment="Top" Width="566" Grid.ColumnSpan="3" Height="16"/>
+                    <TextBox x:Name="textBox" Margin="10,31,10,10" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" Text="TextBox" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Találkozás">
+                <Grid Background="#FFFFFCF7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="197*"/>
+                        <ColumnDefinition Width="96*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="179*"/>
+                        <RowDefinition Height="362*"/>
+                    </Grid.RowDefinitions>
+                    <Calendar HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Grid.Column="1" Height="168" Width="179"/>
+                    <ListBox x:Name="listBox" Height="348" Margin="5,4" Width="179" Grid.Row="1" Grid.Column="1"/>
+                    <GroupBox Grid.Row="1" Grid.Column="0" Header="Jegyzetek">
+                        <TextBox x:Name="textBox1" Margin="10,10,10,2" TextWrapping="Wrap" Text="TextBox" Grid.Row="1" AcceptsReturn="True" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled"/>
+                    </GroupBox>
+                    <TextBox x:Name="textBox2" Height="23" Margin="59,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="333"/>
+                    <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,11,0,0" TextWrapping="Wrap" Text="Helyszín" VerticalAlignment="Top" Height="16" Width="44"/>
+                    <ListBox x:Name="listBox1" Margin="10,38,10,10"/>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
