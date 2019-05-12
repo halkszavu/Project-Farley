@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using WebApi.Bll.Exceptions;
 using WebApi.DAL;
 using WebApi.Entities;
@@ -29,6 +30,11 @@ namespace WebApi.Bll.Services
             return velho.Populii
                 .SingleOrDefault(p => p.ID == personId) ?? throw new EntityNotFoundException("Nem található ilyen személy!");
                 
+        }
+
+        public async Task<Person> GetPersonAsync(int personId)
+        {
+            return await velho.Populii.SingleOrDefaultAsync(p => p.ID == personId) ?? throw new EntityNotFoundException("Nem található ilyen személy!");
         }
 
         public IEnumerable<Person> GetPersons()

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApi.API</name>
+    </assembly>
+    <members>
+        <member name="T:WebApi.API.Controllers.PeopleController">
+            <summary>
+            API Controller for person entities in the database, gets and sets via IPersonService, using json
+            </summary>
+        </member>
+        <member name="M:WebApi.API.Controllers.PeopleController.#ctor(WebApi.Bll.Services.IPersonService,AutoMapper.IMapper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="service">IPersonService service for the layer below</param>
+            <param name="cartographer">IMapper mapping the Bll and DAL layers</param>
+        </member>
+        <member name="M:WebApi.API.Controllers.PeopleController.Get">
+            <summary>
+            Gets all the people (Person entities) from the database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:WebApi.API.Controllers.PeopleController.Get(System.Int32)">
+            <summary>
+            Gets a person from the DB
+            </summary>
+            <param name="id">Integer personId</param>
+            <returns>Person instance</returns>
+        </member>
+    </members>
+</doc>
