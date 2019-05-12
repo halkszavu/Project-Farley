@@ -25,5 +25,6 @@ namespace WebApi.Bll.Services
     {
         Task<Note> InsertNoteAsync(Note newNote);
         Task UpdateNoteAsync(int noteId, Note updatedNote);
+        Task<Note> GetNoteAsync(int personId);
     }
 }

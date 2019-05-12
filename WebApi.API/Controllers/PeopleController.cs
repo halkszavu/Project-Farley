@@ -35,10 +35,7 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <returns>List of Persons</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Person>>> Get()
-        {
-            return mapper.Map<List<Person>>(await personService.GetPersonsAsync()).ToList();
-        }
+        public async Task<ActionResult<IEnumerable<Person>>> Get() => mapper.Map<List<Person>>(await personService.GetPersonsAsync()).ToList();
 
         // GET: api/People/5
         /// <summary>
@@ -47,11 +44,9 @@ namespace WebApi.API.Controllers
         /// <param name="id">Integer personId</param>
         /// <returns>Person instance</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> Get(int id)
-        {
-            return mapper.Map<Person>(await personService.GetPersonAsync(id));
-        }
+        public async Task<ActionResult<Person>> Get(int id) => mapper.Map<Person>(await personService.GetPersonAsync(id));
 
+        //POST:api/People
         /// <summary>
         /// Inserts person into the database
         /// </summary>
@@ -70,12 +65,12 @@ namespace WebApi.API.Controllers
                 );
         }
 
+        //PUT:api/People
         /// <summary>
         /// Updates the person in the id position
         /// </summary>
         /// <param name="id">Integer personId</param>
         /// <param name="person">Person to update to</param>
-        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Person person)
         {

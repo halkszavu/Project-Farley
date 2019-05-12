@@ -8,7 +8,7 @@
             <summary>
             Constructor
             </summary>
-            <param name="service">IPersonService service for the layer below</param>
+            <param name="service">IMeetingService service for the layer below</param>
             <param name="cartographer">IMapper mapping the Bll and DAL layers</param>
         </member>
         <member name="M:WebApi.API.Controllers.MeetingController.Get">
@@ -22,7 +22,7 @@
             Gets a meeting from the DB
             </summary>
             <param name="id">Integer meetinId</param>
-            <returns>meeting instance</returns>
+            <returns>Meeting instance</returns>
         </member>
         <member name="M:WebApi.API.Controllers.MeetingController.Put(System.Int32,WebApi.Bll.Dtos.Meeting)">
             <summary>
@@ -30,7 +30,34 @@
             </summary>
             <param name="id">Integer meetingId</param>
             <param name="meeting">Meeting to update to</param>
-            <returns></returns>
+        </member>
+        <member name="M:WebApi.API.Controllers.NoteController.#ctor(WebApi.Bll.Services.INoteService,AutoMapper.IMapper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="service">INoteService service for the layer below</param>
+            <param name="cartographer">IMapper mapping the Bll and DAL layers</param>
+        </member>
+        <member name="M:WebApi.API.Controllers.NoteController.Get(System.Int32)">
+            <summary>
+            Gets a specified Note with the specified person
+            </summary>
+            <param name="personId">Integer personId</param>
+            <returns>The node associated with the person</returns>
+        </member>
+        <member name="M:WebApi.API.Controllers.NoteController.Post(System.Int32,WebApi.Bll.Dtos.Note)">
+            <summary>
+            Inserts a Note to the specified Person
+            </summary>
+            <param name="personId">Integer personId</param>
+            <param name="note">The note for the person specified</param>
+        </member>
+        <member name="M:WebApi.API.Controllers.NoteController.Put(System.Int32,WebApi.Bll.Dtos.Note)">
+            <summary>
+            Updates the Note to the specified Person
+            </summary>
+            <param name="personId">Integer personId</param>
+            <param name="note">The updated note</param>
         </member>
         <member name="T:WebApi.API.Controllers.PeopleController">
             <summary>
@@ -70,7 +97,6 @@
             </summary>
             <param name="id">Integer personId</param>
             <param name="person">Person to update to</param>
-            <returns></returns>
         </member>
     </members>
 </doc>
