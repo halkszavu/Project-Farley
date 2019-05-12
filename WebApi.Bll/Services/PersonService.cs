@@ -27,8 +27,6 @@ namespace WebApi.Bll.Services
         public Person GetPerson(int personId)
         {
             return velho.Populii
-                .Include(p => p.PersonMeetings)
-                .ThenInclude(pm => pm.Meeting)
                 .SingleOrDefault(p => p.ID == personId) ?? throw new EntityNotFoundException("Nem található ilyen személy!");
                 
         }
@@ -36,8 +34,6 @@ namespace WebApi.Bll.Services
         public IEnumerable<Person> GetPersons()
         {
             var persons = velho.Populii
-                .Include(p => p.PersonMeetings)
-                    .ThenInclude(pm => pm.Meeting)
                 .ToList();
 
             return persons;

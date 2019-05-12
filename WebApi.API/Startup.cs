@@ -52,15 +52,15 @@ namespace WebApi.API
                 cfg.CreateMap<Entities.Note, Note>().ReverseMap();
             });
 #pragma warning restore CS0618 // Type or member is obsolete
+
+            services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseSwagger();
+            app.UseSwaggerUi3();
 
             app.UseMvc();
         }
