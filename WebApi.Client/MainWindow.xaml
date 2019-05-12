@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WebApi.Client"
         mc:Ignorable="d"
-        Title="Farley aktakezelő" Height="600" Width="600" Foreground="#FF2332FF" Background="#FFFFD89F" BorderBrush="White" MinWidth="475" MinHeight="560">
+        Title="Farley aktakezelő" Height="600" Width="600" Foreground="#FF2332FF" Background="#FFFFD89F" BorderBrush="White" MinWidth="475" MinHeight="500">
     <Grid>
         <TabControl x:Name="tabControl" Margin="0,0,0,0" Grid.ColumnSpan="3">
             <TabItem Header="Személy">
@@ -16,12 +16,14 @@
                         <ColumnDefinition Width="277*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="212*"/>
-                        <RowDefinition Height="329*"/>
+                        <RowDefinition Height="224"/>
+                        <RowDefinition/>
 
                     </Grid.RowDefinitions>
                     <TextBox x:Name="PersonNameTextBox" Height="23" Margin="0" TextWrapping="Wrap" Text="Vezetéknév Adott név Keresztnév" VerticalAlignment="Top" BorderBrush="#FF320A0A" Grid.ColumnSpan="3"/>
-                    <Calendar Margin="0,28,10,0" Height="173" Width="181" Grid.Column="2" HorizontalAlignment="Right"/>
+                    <GroupBox Grid.Column="2" Header="Születési dátum" Margin="2,27,2,2">
+                        <Calendar Grid.Column="2" HorizontalAlignment="Right" Margin="0,0,0,-12"/>
+                    </GroupBox>
                     <GroupBox x:Name="MartialStateGroupBox" Header="Családi státusz" Margin="10,35,5,10">
                         <StackPanel>
                             <RadioButton Name="MartialStateNARadioButton" Content="N/A" IsChecked="True"/>
@@ -46,7 +48,7 @@
             </TabItem>
             <TabItem Header="Találkozás">
                 <Grid Background="#FFFFFCF7">
-                    
+
                 </Grid>
             </TabItem>
         </TabControl>
