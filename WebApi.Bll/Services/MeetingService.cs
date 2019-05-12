@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
+using WebApi.Bll.Exceptions;
 using WebApi.DAL;
 using WebApi.Entities;
-using WebApi.Bll.Exceptions;
-using System.Threading.Tasks;
 
 namespace WebApi.Bll.Services
 {
