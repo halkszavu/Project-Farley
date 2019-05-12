@@ -4,6 +4,34 @@
         <name>WebApi.API</name>
     </assembly>
     <members>
+        <member name="M:WebApi.API.Controllers.MeetingController.#ctor(WebApi.Bll.Services.IMeetingService,AutoMapper.IMapper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="service">IPersonService service for the layer below</param>
+            <param name="cartographer">IMapper mapping the Bll and DAL layers</param>
+        </member>
+        <member name="M:WebApi.API.Controllers.MeetingController.Get">
+            <summary>
+            Gets all the meetings (Meeting entities) from the database
+            </summary>
+            <returns>List of Meetings</returns>
+        </member>
+        <member name="M:WebApi.API.Controllers.MeetingController.Get(System.Int32)">
+            <summary>
+            Gets a meeting from the DB
+            </summary>
+            <param name="id">Integer meetinId</param>
+            <returns>meeting instance</returns>
+        </member>
+        <member name="M:WebApi.API.Controllers.MeetingController.Put(System.Int32,WebApi.Bll.Dtos.Meeting)">
+            <summary>
+            Updates the meeting in the id position
+            </summary>
+            <param name="id">Integer meetingId</param>
+            <param name="meeting">Meeting to update to</param>
+            <returns></returns>
+        </member>
         <member name="T:WebApi.API.Controllers.PeopleController">
             <summary>
             API Controller for person entities in the database, gets and sets via IPersonService, using json
@@ -20,7 +48,7 @@
             <summary>
             Gets all the people (Person entities) from the database
             </summary>
-            <returns></returns>
+            <returns>List of Persons</returns>
         </member>
         <member name="M:WebApi.API.Controllers.PeopleController.Get(System.Int32)">
             <summary>

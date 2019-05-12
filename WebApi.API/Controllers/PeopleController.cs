@@ -33,19 +33,19 @@ namespace WebApi.API.Controllers
         /// <summary>
         /// Gets all the people (Person entities) from the database
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of Persons</returns>
         [HttpGet]
-        public ActionResult<IEnumerable<Person> >Get()
+        public async Task<ActionResult<IEnumerable<Person>>> Get()
         {
-            return mapper.Map<List<Person>>(personService.GetPersonsAsync()).ToList();
+            return mapper.Map<List<Person>>(await personService.GetPersonsAsync()).ToList();
         }
 
+        // GET: api/People/5
         /// <summary>
         /// Gets a person from the DB
         /// </summary>
         /// <param name="id">Integer personId</param>
         /// <returns>Person instance</returns>
-        // GET: api/People/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Person>> Get(int id)
         {
