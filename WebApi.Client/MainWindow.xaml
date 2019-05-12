@@ -5,8 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WebApi.Client"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Farley aktakezelő" Height="600" Width="600" Foreground="#FF2332FF" Background="#FFFFD89F" BorderBrush="White" MinWidth="475" MinHeight="560">
     <Grid>
-        
+        <TabControl x:Name="tabControl" Margin="0,0,0,0" Grid.ColumnSpan="3">
+            <TabItem Header="Személy">
+                <Grid Background="#FFFFFCF7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="153*"/>
+                        <ColumnDefinition Width="153*"/>
+                        <ColumnDefinition Width="277*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="212*"/>
+                        <RowDefinition Height="329*"/>
+
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="PersonNameTextBox" Height="23" Margin="0" TextWrapping="Wrap" Text="Vezetéknév Adott név Keresztnév" VerticalAlignment="Top" BorderBrush="#FF320A0A" Grid.ColumnSpan="3"/>
+                    <Calendar Margin="0,28,10,0" Height="173" Width="181" Grid.Column="2" HorizontalAlignment="Right"/>
+                    <GroupBox x:Name="MartialStateGroupBox" Header="Családi státusz" Margin="10,35,5,10">
+                        <StackPanel>
+                            <RadioButton Name="MartialStateNARadioButton" Content="N/A" IsChecked="True"/>
+                            <RadioButton Name="MartialStateSingleRadioButton" Content="Egyedülálló" />
+                            <RadioButton Name="MartialStateMarriedRadioButton" Content="Házas"/>
+                            <RadioButton Name="MartilaStateOtherRadioButton" Content="Egyéb"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox x:Name="SiblingStateGroupBox" Header="Testvéri státusz" Margin="5,35,5,10" Grid.Column="1">
+                        <StackPanel>
+                            <RadioButton Name="SiblingStateNARadioButton" Content="N/A" IsChecked="True"/>
+                            <RadioButton Name="SiblingStateEldestRadioButton" Content="Legidősebb"/>
+                            <RadioButton Name="SiblingStateMiddleRadioButton" Content="Középső"/>
+                            <RadioButton Name="SiblingStateYoungestRadioButton" Content="Legfiatalabb"/>
+                            <RadioButton Name="SiblingStateOnlyChildRadioButton" Content="Egyke"/>
+                            <RadioButton Name="SiblingStateOtherRadioButton" Content="Egyéb"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Jegyzetek" VerticalAlignment="Top" Width="566" Grid.ColumnSpan="3" Height="16"/>
+                    <TextBox x:Name="textBox" Margin="10,31,10,10" Grid.Row="1" TextWrapping="Wrap" AcceptsReturn="True" Text="TextBox" Grid.ColumnSpan="3" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Találkozás">
+                <Grid Background="#FFFFFCF7">
+                    
+                </Grid>
+            </TabItem>
+        </TabControl>
+
     </Grid>
 </Window>
