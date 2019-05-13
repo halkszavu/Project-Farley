@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApi.Bll.Exceptions;
@@ -19,9 +20,13 @@ namespace WebApi.Bll.Services
             velho.SaveChanges();
         }
 
+        public async Task<Person> GetFirstPersonAsync(string personName) => await velho.Populii.FirstOrDefaultAsync(p => p.Name.Contains(personName));
+
         public async Task<Person> GetPersonAsync(int personId) => await velho.Populii.SingleOrDefaultAsync(p => p.ID == personId) ?? throw new EntityNotFoundException("Nem található ilyen személy!");
 
         public async Task<IEnumerable<Person>> GetPersonsAsync() => await velho.Populii.ToListAsync();
+
+        public async Task<IEnumerable<Person>> GetPersonsAsync(DateTime dateOfBirth) => await velho.Populii.Include(p => p.DateOfBirth.Subtract(dateOfBirth) <= TimeSpan.FromSeconds(86400)).ToListAsync(); //NOTE: Nem fog SQL-ként lefutni, mindent a kódban fog megcsinálni. Lehet valahogy javítani?
 
         public async Task<Person> InsertPersonAsync(Person newPerson)
         {
