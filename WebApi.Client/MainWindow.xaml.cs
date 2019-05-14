@@ -56,5 +56,10 @@ namespace WebApi.Client
         {
 
         }
+
+        private void InfoButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

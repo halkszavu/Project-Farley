@@ -97,7 +97,7 @@
                             </TextBlock.RenderTransform>
                         </TextBlock>
                     </Button>
-                    <Button x:Name="NoteSaveButton" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Width="23" Height="24" Click="NoteSaveButton_Click" Margin="0,3,10,0" Grid.Row="3">
+                    <Button x:Name="NoteSaveButton" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Width="23" Height="24" Click="NoteSaveButton_Click" Margin="0,3,2,0" Grid.Row="3">
                         <TextBlock TextAlignment="Center" Text="✎" FontSize="16" RenderTransformOrigin="0.5,0.5">
                             <TextBlock.RenderTransform>
                                 <TransformGroup>
@@ -105,6 +105,18 @@
                                     <SkewTransform/>
                                     <RotateTransform Angle="90"/>
                                     <TranslateTransform X="-2" Y="1"/>
+                                </TransformGroup>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                    </Button>
+                    <Button x:Name="InfoButton" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" Width="23" Height="24" Click="InfoButton_Click" Margin="0,3,27,0" Grid.Row="3">
+                        <TextBlock TextAlignment="Center" Text="&#x2148;" FontSize="16" RenderTransformOrigin="0.5,0.5">
+                            <TextBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="1.4" ScaleY="1.4"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform Y="-1"/>
                                 </TransformGroup>
                             </TextBlock.RenderTransform>
                         </TextBlock>
