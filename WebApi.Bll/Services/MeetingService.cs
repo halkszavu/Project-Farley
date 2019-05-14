@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,6 +50,8 @@ namespace WebApi.Bll.Services
         public async Task<Meeting> GetMeetingAsync(int meetingId) => await velho.Meetings.SingleOrDefaultAsync(m => m.ID == meetingId) ?? throw new EntityNotFoundException("Nem található ilyen találkozás!");
 
         public async Task<IEnumerable<Meeting>> GetMeetingsAsync() => await velho.Meetings.ToListAsync();
+
+        public async Task<IEnumerable<Meeting>> GetMeetingsAsync(Predicate<DateTime> predicate) => await velho.Meetings.Where(m => predicate(m.Date)).ToListAsync();
 
         public async Task UpdateMeetingAsync(int meetingId, Meeting updatedMeeting)
         {
