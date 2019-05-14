@@ -20,9 +20,26 @@ namespace WebApi.Client
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly string Tie = @"http://localhost:58637/api";
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void NewPersonButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SearchPersonButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PersonSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
