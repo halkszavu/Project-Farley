@@ -20,7 +20,7 @@ namespace WebApi.API.Controllers
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="service">IPersonService service for the layer below</param>
+        /// <param name="service">IMeetingService service for the layer below</param>
         /// <param name="cartographer">IMapper mapping the Bll and DAL layers</param>
         public MeetingController(IMeetingService service, IMapper cartographer)
         {
@@ -34,22 +34,16 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <returns>List of Meetings</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Meeting>>> Get()
-        {
-            return mapper.Map<List<Meeting>>(await meetingService.GetMeetingsAsync()).ToList();
-        }
+        public async Task<ActionResult<IEnumerable<Meeting>>> Get() => mapper.Map<List<Meeting>>(await meetingService.GetMeetingsAsync()).ToList();
 
         // GET: api/Meeting/5
         /// <summary>
         /// Gets a meeting from the DB
         /// </summary>
         /// <param name="id">Integer meetinId</param>
-        /// <returns>meeting instance</returns>
+        /// <returns>Meeting instance</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> Get(int id)
-        {
-            return mapper.Map<Person>(await meetingService.GetMeetingAsync(id));
-        }
+        public async Task<ActionResult<Person>> Get(int id) => mapper.Map<Person>(await meetingService.GetMeetingAsync(id));
 
         // PUT: api/Meeting/5
         /// <summary>
@@ -57,7 +51,6 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <param name="id">Integer meetingId</param>
         /// <param name="meeting">Meeting to update to</param>
-        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Meeting meeting)
         {
