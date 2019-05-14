@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,7 +21,7 @@ namespace WebApi.Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly string Tie = @"http://localhost:58637/api";
+        private readonly string Tie = @"http://localhost:58637/api/";
 
         public MainWindow()
         {
@@ -32,12 +33,26 @@ namespace WebApi.Client
 
         }
 
-        private void SearchPersonButton_Click(object sender, RoutedEventArgs e)
+        private async void SearchPersonButton_Click(object sender, RoutedEventArgs e)
+        {
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync(new Uri(Tie + $"People/1"));
+
+                if(response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+
+                }
+            }
+        }
+
+        private void PersonSaveButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void PersonSaveButton_Click(object sender, RoutedEventArgs e)
+        private void NoteSaveButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
