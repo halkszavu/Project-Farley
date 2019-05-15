@@ -45,9 +45,7 @@ namespace WebApi.Client
                 {
                     var json = await response.Content.ReadAsStringAsync();
 
-                    Person person = JsonConvert.DeserializeObject<Person>(json);
-
-                    PersonNameTextBox.Text = person.Name;
+                    LoadPerson(JsonConvert.DeserializeObject<Person>(json));
                 }
             }
         }
@@ -65,6 +63,44 @@ namespace WebApi.Client
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Loads in the person to the UI
+        /// </summary>
+        /// <param name="person">The <see cref="Person"/> to load</param>
+        private async void LoadPerson(Person person)
+        {
+            PersonNameTextBox.Text = person.Name;
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync(new Uri(Tie + $"Note/{person.ID}"));
+
+                if(response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+
+                    LoadNote(JsonConvert.DeserializeObject<Note>(json));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Loads in the meeting to the UI
+        /// </summary>
+        /// <param name="meeting">The <see cref="Meeting"/> to load</param>
+        private void LoadMeeting(Meeting meeting)
+        {
+
+        }
+
+        /// <summary>
+        /// Loads in the note to the UI
+        /// </summary>
+        /// <param name="note">The <see cref="Note"/> to load</param>
+        private void LoadNote(Note note)
+        {
+            NotesTextBox.Text = note.Notes;
         }
     }
 }

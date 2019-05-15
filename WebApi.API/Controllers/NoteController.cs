@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using WebApi.Bll.Dtos;
 using WebApi.Bll.Services;
 
@@ -32,10 +28,10 @@ namespace WebApi.API.Controllers
         /// <summary>
         /// Gets a specified Note with the specified person
         /// </summary>
-        /// <param name="personId">Integer personId</param>
+        /// <param name="id">Integer personId</param>
         /// <returns>The node associated with the person</returns>
-        [HttpGet("{id}", Name = "Get")]
-        public async Task<Note> Get(int personId) => mapper.Map<Note>(await noteService.GetNoteAsync(personId));
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Note>> Get(int id) => mapper.Map<Note>(await noteService.GetNoteAsync(id));
 
         // POST: api/Note
         /// <summary>
@@ -62,7 +58,7 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <param name="personId">Integer personId</param>
         /// <param name="note">The updated note</param>
-        [HttpPut("{id}")]
+        [HttpPut("{personId}")]
         public async Task<IActionResult> Put(int personId, [FromBody] Note note)
         {
             await noteService.UpdateNoteAsync(personId, mapper.Map<Entities.Note>(note));

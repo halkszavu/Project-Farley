@@ -35,6 +35,8 @@ namespace WebApi.API
                     c => c.Throw(RelationalEventId.QueryClientEvaluationWarning)));
 
             services.AddTransient<IPersonService, PersonService>();
+            services.AddTransient<INoteService, NoteService>();
+            services.AddTransient<IMeetingService, MeetingService>();
 
 #pragma warning disable CS0618 // Type or member is obsolete
             services.AddAutoMapper(cfg =>
