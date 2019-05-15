@@ -39,7 +39,7 @@ namespace WebApi.Client
         {
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(new Uri(Tie + $"People/1"));
+                var response = await client.GetAsync(new Uri(Tie + $"People/byName{PersonNameTextBox.Text}"));
 
                 if(response.IsSuccessStatusCode)
                 {

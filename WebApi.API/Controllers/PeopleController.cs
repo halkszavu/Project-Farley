@@ -39,12 +39,21 @@ namespace WebApi.API.Controllers
 
         // GET: api/People/5
         /// <summary>
-        /// Gets a person from the DB
+        /// Gets a person from the DB by Id
         /// </summary>
         /// <param name="id">Integer personId</param>
         /// <returns>Person instance</returns>
-        [HttpGet("{id}")]
+        [HttpGet("byId{id}")]
         public async Task<ActionResult<Person>> Get(int id) => mapper.Map<Person>(await personService.GetPersonAsync(id));
+
+        // GET: api/People/name
+        /// <summary>
+        /// Gets a person from the DB by name (if their name contains the name, it will return the first person it found)
+        /// </summary>
+        /// <param name="name">Name or part of the name of the person</param>
+        /// <returns>Person instance</returns>
+        [HttpGet("byName{name}")]
+        public async Task<ActionResult<Person>> Get(string name) => mapper.Map<Person>(await personService.GetFirstPersonAsync(name));
 
         //POST:api/People
         /// <summary>
