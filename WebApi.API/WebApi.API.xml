@@ -31,6 +31,14 @@
             <param name="id">Integer meetingId</param>
             <param name="meeting">Meeting to update to</param>
         </member>
+        <member name="M:WebApi.API.Controllers.MeetingController.Post(System.Int32,WebApi.Bll.Dtos.Meeting)">
+            <summary>
+            Creates a meeting with the person
+            </summary>
+            <param name="personId">The personId for the meeting attendee</param>
+            <param name="meeting">The meeting</param>
+            <returns></returns>
+        </member>
         <member name="M:WebApi.API.Controllers.NoteController.#ctor(WebApi.Bll.Services.INoteService,AutoMapper.IMapper)">
             <summary>
             Constructor

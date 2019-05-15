@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using WebApi.Entities;
 
 namespace WebApi.Client
 {
@@ -43,6 +45,9 @@ namespace WebApi.Client
                 {
                     var json = await response.Content.ReadAsStringAsync();
 
+                    Person person = JsonConvert.DeserializeObject<Person>(json);
+
+                    PersonNameTextBox.Text = person.Name;
                 }
             }
         }
