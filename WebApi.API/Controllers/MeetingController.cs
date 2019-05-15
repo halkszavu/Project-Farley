@@ -65,6 +65,7 @@ namespace WebApi.API.Controllers
         /// <param name="personId">The personId for the meeting attendee</param>
         /// <param name="meeting">The meeting</param>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult<Meeting> Post(int personId, [FromBody] Meeting meeting)
         {
             return mapper.Map<Meeting>(meetingService.CreateMeetingAsync(personId, mapper.Map<Entities.Meeting>(meeting)));
