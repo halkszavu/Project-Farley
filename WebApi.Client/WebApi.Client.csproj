@@ -98,5 +98,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebApi.DAL\WebApi.DAL.csproj">
+      <Project>{aa8e015c-ed5d-4db2-8e25-182ad53b3134}</Project>
+      <Name>WebApi.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

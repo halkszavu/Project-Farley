@@ -13,6 +13,7 @@ using WebApi.DAL;
 
 namespace WebApi.API
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -35,6 +36,8 @@ namespace WebApi.API
                     c => c.Throw(RelationalEventId.QueryClientEvaluationWarning)));
 
             services.AddTransient<IPersonService, PersonService>();
+            services.AddTransient<INoteService, NoteService>();
+            services.AddTransient<IMeetingService, MeetingService>();
 
 #pragma warning disable CS0618 // Type or member is obsolete
             services.AddAutoMapper(cfg =>
@@ -61,3 +64,4 @@ namespace WebApi.API
         }
     }
 }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
