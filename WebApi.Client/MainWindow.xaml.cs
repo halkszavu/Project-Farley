@@ -91,7 +91,7 @@ namespace WebApi.Client
 
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Készítette: Perényi Botond L.\nFarley-akta kezelőfelület\n2019.05", "Info", MessageBoxButton.OK, MessageBoxImage.Information,MessageBoxResult.OK);
         }
 
         /// <summary>
