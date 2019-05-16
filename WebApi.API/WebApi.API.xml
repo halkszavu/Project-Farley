@@ -101,14 +101,14 @@
         </member>
         <member name="M:WebApi.API.Controllers.PeopleController.Post(WebApi.Entities.Person)">
             <summary>
-            Inserts person into the database
+            Inserts a new person into the database
             </summary>
             <param name="person"></param>
             <returns>Person to insert into the database</returns>
         </member>
         <member name="M:WebApi.API.Controllers.PeopleController.Put(System.Int32,WebApi.Entities.Person)">
             <summary>
-            Updates the person in the id position
+            Updates an existing person in the id position
             </summary>
             <param name="id">Integer personId</param>
             <param name="person">Person to update to</param>

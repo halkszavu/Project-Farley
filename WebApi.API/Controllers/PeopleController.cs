@@ -57,7 +57,7 @@ namespace WebApi.API.Controllers
 
         //POST:api/People
         /// <summary>
-        /// Inserts person into the database
+        /// Inserts a new person into the database
         /// </summary>
         /// <param name="person"></param>
         /// <returns>Person to insert into the database</returns>
@@ -76,7 +76,7 @@ namespace WebApi.API.Controllers
 
         //PUT:api/People
         /// <summary>
-        /// Updates the person in the id position
+        /// Updates an existing person in the id position
         /// </summary>
         /// <param name="id">Integer personId</param>
         /// <param name="person">Person to update to</param>

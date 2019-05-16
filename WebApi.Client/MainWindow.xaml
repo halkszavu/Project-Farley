@@ -46,7 +46,7 @@
                             <RadioButton Name="MartialStateNARadioButton" Content="N/A" IsChecked="True"/>
                             <RadioButton Name="MartialStateSingleRadioButton" Content="Egyedülálló" />
                             <RadioButton Name="MartialStateMarriedRadioButton" Content="Házas"/>
-                            <RadioButton Name="MartilaStateOtherRadioButton" Content="Egyéb"/>
+                            <RadioButton x:Name="MartialStateOtherRadioButton" Content="Egyéb"/>
                         </StackPanel>
                     </GroupBox>
                     <GroupBox x:Name="SiblingStateGroupBox" Header="Testvéri státusz" Margin="5,35,5,10" Grid.Column="1">

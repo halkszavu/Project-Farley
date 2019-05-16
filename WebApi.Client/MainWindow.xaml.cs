@@ -25,14 +25,32 @@ namespace WebApi.Client
     {
         private readonly string Tie = @"http://localhost:58637/api/";
 
+        //henkilöllisyys
+        private int henkilo;
+
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void NewPersonButton_Click(object sender, RoutedEventArgs e)
+        private async void NewPersonButton_Click(object sender, RoutedEventArgs e)
         {
+            //TODO:
+            //onko henkilö jo olemassa tietokannassa
+            //jos kyllä: näyttä virheilmoituksen
 
+            using (var client =  new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(PrimePerson()),Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(Tie + "People", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+
+                    LoadPerson(JsonConvert.DeserializeObject<Person>(json));
+                }
+            }
         }
 
         private async void SearchPersonButton_Click(object sender, RoutedEventArgs e)
@@ -50,9 +68,20 @@ namespace WebApi.Client
             }
         }
 
-        private void PersonSaveButton_Click(object sender, RoutedEventArgs e)
+        private async void PersonSaveButton_Click(object sender, RoutedEventArgs e)
         {
+            using (var client = new HttpClient())
+            {
+                var content = new StringContent(JsonConvert.SerializeObject(PrimePerson()), Encoding.UTF8, "application/json");
+                var response = await client.PutAsync(Tie + "People", content);
 
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+
+                    LoadPerson(JsonConvert.DeserializeObject<Person>(json));
+                }
+            }
         }
 
         private void NoteSaveButton_Click(object sender, RoutedEventArgs e)
@@ -72,6 +101,48 @@ namespace WebApi.Client
         private async void LoadPerson(Person person)
         {
             PersonNameTextBox.Text = person.Name;
+            henkilo = person.ID;
+
+            switch (person.MartialState)
+            {
+                case MartialState.Single:
+                    MartialStateSingleRadioButton.IsChecked = true;
+                    break;
+                case MartialState.Married:
+                    MartialStateMarriedRadioButton.IsChecked = true;
+                    break;
+                case MartialState.Other:
+                    MartialStateOtherRadioButton.IsChecked = true;
+                    break;
+                case MartialState.NA:
+                default:
+                    MartialStateNARadioButton.IsChecked = true;
+                    break;
+            }
+
+            switch (person.SiblingState)
+            {
+                case SiblingState.Eldest:
+                    SiblingStateEldestRadioButton.IsChecked = true;
+                    break;
+                case SiblingState.Younges:
+                    SiblingStateYoungestRadioButton.IsChecked = true;
+                    break;
+                case SiblingState.Middle:
+                    SiblingStateMiddleRadioButton.IsChecked = true;
+                    break;
+                case SiblingState.Only_Child:
+                    SiblingStateOnlyChildRadioButton.IsChecked = true;
+                    break;
+                case SiblingState.Other:
+                    SiblingStateOtherRadioButton.IsChecked = true;
+                    break;
+                case SiblingState.NA:
+                default:
+                    SiblingStateNARadioButton.IsChecked = true;
+                    break;
+            }
+
             using (var client = new HttpClient())
             {
                 var response = await client.GetAsync(new Uri(Tie + $"Note/{person.ID}"));
@@ -102,5 +173,52 @@ namespace WebApi.Client
         {
             NotesTextBox.Text = note.Notes;
         }
+
+
+        /// <summary>
+        /// Sets up the person from the UI
+        /// </summary>
+        /// <returns>The <see cref="Person"/> on the UI</returns>
+        private Person PrimePerson() => new Person
+        {
+            Name = PersonNameTextBox.Text,
+            MartialState = GetMartialState(),
+            SiblingState = GetSiblingState(),
+            DateOfBirth = PersonCalendar.SelectedDate ?? DateTime.Now,
+        };
+
+        private SiblingState GetSiblingState()
+        {
+            if (SiblingStateMiddleRadioButton.IsChecked ?? false)
+                return SiblingState.Middle;
+            else if (SiblingStateEldestRadioButton.IsChecked ?? false)
+                return SiblingState.Eldest;
+            else if (SiblingStateOnlyChildRadioButton.IsChecked ?? false)
+                return SiblingState.Only_Child;
+            else if (SiblingStateYoungestRadioButton.IsChecked ?? false)
+                return SiblingState.Younges;
+            else if (SiblingStateOtherRadioButton.IsChecked ?? false)
+                return SiblingState.Other;
+            else
+                return SiblingState.NA;
+        }
+
+        private MartialState GetMartialState()
+        {
+            if (MartialStateMarriedRadioButton.IsChecked ?? false)
+                return MartialState.Married;
+            else if (MartialStateSingleRadioButton.IsChecked ?? false)
+                return MartialState.Single;
+            else if (MartialStateOtherRadioButton.IsChecked ?? false)
+                return MartialState.Other;
+            else
+                return MartialState.NA;
+        }
+
+        /// <summary>
+        /// Sets up the Note from the UI
+        /// </summary>
+        /// <returns>The <see cref="Note"/> in the UI</returns>
+        private Note PrimeNote() => new Note { Notes = NotesTextBox.Text, Time = DateTime.Now };
     }
 }
