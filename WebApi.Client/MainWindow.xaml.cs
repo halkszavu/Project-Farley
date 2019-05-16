@@ -84,15 +84,25 @@ namespace WebApi.Client
             }
         }
 
-        private void NoteSaveButton_Click(object sender, RoutedEventArgs e)
+        private async void NoteSaveButton_Click(object sender, RoutedEventArgs e)
         {
+            using (var client = new HttpClient())
+            {
+                Note note = PrimeNote();
+                note.PersonID = henkilo;
+                var content = new StringContent(JsonConvert.SerializeObject(note), Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(Tie + $"Note", content);
 
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+
+                    LoadNote(JsonConvert.DeserializeObject<Note>(json));
+                }
+            }
         }
 
-        private void InfoButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        private void InfoButton_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Készítette: Perényi Botond L.\nFarley-akta kezelőfelület\n2019.05", "Info", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
 
         /// <summary>
         /// Loads in the person to the UI
@@ -169,10 +179,7 @@ namespace WebApi.Client
         /// Loads in the note to the UI
         /// </summary>
         /// <param name="note">The <see cref="Note"/> to load</param>
-        private void LoadNote(Note note)
-        {
-            NotesTextBox.Text = note.Notes;
-        }
+        private void LoadNote(Note note) => NotesTextBox.Text = note.Notes;
 
 
         /// <summary>
