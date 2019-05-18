@@ -47,7 +47,10 @@ namespace WebApi.Bll.Services
             return meeting;
         }
 
-        public async Task<Meeting> GetMeetingAsync(int meetingId) => await velho.Meetings.SingleOrDefaultAsync(m => m.ID == meetingId) ?? throw new EntityNotFoundException("Nem található ilyen találkozás!");
+        public async Task<Meeting> GetMeetingAsync(int meetingId) => await velho.Meetings
+            .Include(m=>m.PersonMeetings)
+                .ThenInclude(pm=>pm.Person)
+            .SingleOrDefaultAsync(m => m.ID == meetingId) ?? throw new EntityNotFoundException("Nem található ilyen találkozás!");
 
         public async Task<IEnumerable<Meeting>> GetMeetingsAsync() => await velho.Meetings.ToListAsync();
 
