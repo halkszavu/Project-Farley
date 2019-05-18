@@ -27,6 +27,8 @@ namespace WebApi.Client
 
         //henkilöllisyys
         private int henkilo;
+        //tapaaminen
+        private int tapa;
 
         public MainWindow()
         {

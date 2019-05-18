@@ -40,7 +40,7 @@ namespace WebApi.API.Controllers
         /// <summary>
         /// Gets a meeting from the DB
         /// </summary>
-        /// <param name="id">Integer meetinId</param>
+        /// <param name="id">Integer meetingId</param>
         /// <returns>Meeting instance</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Meeting>> Get(int id) => mapper.Map<Meeting>(await meetingService.GetMeetingAsync(id));
@@ -66,9 +66,6 @@ namespace WebApi.API.Controllers
         /// <param name="meeting">The meeting</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<Meeting> Post(int personId, [FromBody] Meeting meeting)
-        {
-            return mapper.Map<Meeting>(meetingService.CreateMeetingAsync(personId, mapper.Map<Entities.Meeting>(meeting)));
-        }
+        public ActionResult<Meeting> Post(int personId, [FromBody] Meeting meeting) => mapper.Map<Meeting>(meetingService.CreateMeetingAsync(personId, mapper.Map<Entities.Meeting>(meeting)));
     }
 }
