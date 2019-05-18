@@ -46,7 +46,11 @@ namespace WebApi.API
                 .AfterMap((p, dto, ctx) =>
                     dto.Meetings = p.PersonMeetings.Select(pm =>
                         ctx.Mapper.Map<Meeting>(pm.Meeting)).ToList()).ReverseMap();
-                cfg.CreateMap<Entities.Meeting, Meeting>().ReverseMap();
+                cfg.CreateMap<Entities.Meeting, Meeting>()
+                .AfterMap((m, dto, ctx) =>
+                    dto.People = m.PersonMeetings.Select(pm =>
+                      ctx.Mapper.Map<Person>(pm.Person)).ToList()).ReverseMap();
+                cfg.CreateMap<Entities.Person, Person>().ReverseMap();
                 cfg.CreateMap<Entities.Note, Note>().ReverseMap();
             });
 #pragma warning restore CS0618 // Type or member is obsolete

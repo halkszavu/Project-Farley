@@ -22,7 +22,10 @@ namespace WebApi.Bll.Services
 
         public async Task<Person> GetFirstPersonAsync(string personName) => await velho.Populii.FirstOrDefaultAsync(p => p.Name.Contains(personName));
 
-        public async Task<Person> GetPersonAsync(int personId) => await velho.Populii.Include(p=>p.PersonMeetings).ThenInclude(pm=>pm.Meeting).SingleOrDefaultAsync(p => p.ID == personId) ?? throw new EntityNotFoundException("Nem található ilyen személy!");
+        public async Task<Person> GetPersonAsync(int personId) => await velho.Populii
+            .Include(p => p.PersonMeetings)
+                .ThenInclude(pm => pm.Meeting)
+            .SingleOrDefaultAsync(p => p.ID == personId) ?? throw new EntityNotFoundException("Nem található ilyen személy!");
 
         public async Task<IEnumerable<Person>> GetPersonsAsync() => await velho.Populii.ToListAsync();
 
