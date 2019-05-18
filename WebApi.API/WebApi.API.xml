@@ -21,7 +21,7 @@
             <summary>
             Gets a meeting from the DB
             </summary>
-            <param name="id">Integer meetinId</param>
+            <param name="id">Integer meetingId</param>
             <returns>Meeting instance</returns>
         </member>
         <member name="M:WebApi.API.Controllers.MeetingController.Put(System.Int32,WebApi.Bll.Dtos.Meeting)">
