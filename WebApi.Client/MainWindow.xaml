@@ -12,8 +12,8 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl x:Name="tabControl" Margin="0,0,0,0" Grid.RowSpan="2">
-            <TabItem Header="Személy">
+        <TabControl x:Name="FarleyTabControl" Margin="0,0,0,0" Grid.RowSpan="2" SelectionChanged="FarleyTabControl_SelectionChanged">
+            <TabItem Name="PersonTabItem" Header="Személy">
                 <Grid Background="#FFFFFCF7">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="154*"/>
@@ -123,7 +123,7 @@
                     </Button>
                 </Grid>
             </TabItem>
-            <TabItem Header="Találkozás">
+            <TabItem Name="MeetingTabItem" Header="Találkozás">
                 <Grid Background="#FFFFFCF7">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="197*"/>

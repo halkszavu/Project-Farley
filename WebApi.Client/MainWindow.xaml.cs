@@ -227,5 +227,16 @@ namespace WebApi.Client
         /// </summary>
         /// <returns>The <see cref="Note"/> in the UI</returns>
         private Note PrimeNote() => new Note { Notes = NotesTextBox.Text, Time = DateTime.Now };
+
+        private void FarleyTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (MeetingTabItem.IsSelected)
+                UpdateMeetingTabItem();
+        }
+
+        private void UpdateMeetingTabItem()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
