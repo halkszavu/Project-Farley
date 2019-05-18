@@ -236,7 +236,7 @@ namespace WebApi.Client
 
         private void UpdateMeetingTabItem()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
     }
 }
