@@ -29,9 +29,11 @@ namespace WebApi.Client
         private int henkilo;
         //tapaaminen
         private int tapa;
+        bool toinenKo;
 
         public MainWindow()
         {
+            toinenKo = false;
             InitializeComponent();
         }
 
@@ -232,13 +234,35 @@ namespace WebApi.Client
 
         private void FarleyTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (MeetingTabItem.IsSelected)
+            if (e.Source is TabControl && MeetingTabItem.IsSelected)
+            {
+                toinenKo = true;
                 UpdateMeetingTabItem();
+            }
+            else
+            {
+                toinenKo = false;
+            }
         }
 
-        private void UpdateMeetingTabItem()
+        private async void UpdateMeetingTabItem()
         {
-            
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync(Tie + "People");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+
+                    var populii = JsonConvert.DeserializeObject<List<Person>>(json);
+
+                    foreach (var item in populii)
+                    {
+                        PersonListBox.Items.Add(item.Name);
+                    }
+                }
+            }
         }
     }
 }
