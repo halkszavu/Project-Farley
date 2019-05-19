@@ -23,17 +23,16 @@ namespace WebApi.Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly string Tie = @"http://localhost:58637/api/";
+        //private readonly string Tie = @"http://localhost:58637/api/";
+        private readonly string Tie = @"http://localhost:5000/api/";
 
         //henkilöllisyys
         private int henkilo;
         //tapaaminen
         private int tapa;
-        bool toinenKo;
 
         public MainWindow()
         {
-            toinenKo = false;
             InitializeComponent();
         }
 
@@ -236,12 +235,11 @@ namespace WebApi.Client
         {
             if (e.Source is TabControl && MeetingTabItem.IsSelected)
             {
-                toinenKo = true;
                 UpdateMeetingTabItem();
             }
             else
             {
-                toinenKo = false;
+
             }
         }
 
