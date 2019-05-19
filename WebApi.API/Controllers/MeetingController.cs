@@ -10,7 +10,9 @@ namespace WebApi.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class MeetingController : ControllerBase
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
         private readonly IMeetingService meetingService;
         private readonly IMapper mapper;
@@ -38,10 +40,10 @@ namespace WebApi.API.Controllers
         /// <summary>
         /// Gets a meeting from the DB
         /// </summary>
-        /// <param name="id">Integer meetinId</param>
+        /// <param name="id">Integer meetingId</param>
         /// <returns>Meeting instance</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> Get(int id) => mapper.Map<Person>(await meetingService.GetMeetingAsync(id));
+        public async Task<ActionResult<Meeting>> Get(int id) => mapper.Map<Meeting>(await meetingService.GetMeetingAsync(id));
 
         // PUT: api/Meeting/5
         /// <summary>
@@ -64,9 +66,6 @@ namespace WebApi.API.Controllers
         /// <param name="meeting">The meeting</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<Meeting> Post(int personId, [FromBody] Meeting meeting)
-        {
-            return mapper.Map<Meeting>(meetingService.CreateMeetingAsync(personId, mapper.Map<Entities.Meeting>(meeting)));
-        }
+        public ActionResult<Meeting> Post(int personId, [FromBody] Meeting meeting) => mapper.Map<Meeting>(meetingService.CreateMeetingAsync(personId, mapper.Map<Entities.Meeting>(meeting)));
     }
 }

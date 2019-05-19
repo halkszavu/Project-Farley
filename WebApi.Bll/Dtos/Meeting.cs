@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WebApi.Bll.Dtos
 {
@@ -8,5 +9,7 @@ namespace WebApi.Bll.Dtos
         public DateTime Date { get; set; }
         public string Place { get; set; }
         public string Notes { get; set; }
+
+        public List<Person> People { get; set; }
     }
 }

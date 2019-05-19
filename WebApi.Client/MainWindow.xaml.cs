@@ -23,10 +23,13 @@ namespace WebApi.Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly string Tie = @"http://localhost:58637/api/";
+        //private readonly string Tie = @"http://localhost:58637/api/";
+        private readonly string Tie = @"http://localhost:5000/api/";
 
         //henkilöllisyys
         private int henkilo;
+        //tapaaminen
+        private int tapa;
 
         public MainWindow()
         {
@@ -227,5 +230,37 @@ namespace WebApi.Client
         /// </summary>
         /// <returns>The <see cref="Note"/> in the UI</returns>
         private Note PrimeNote() => new Note { Notes = NotesTextBox.Text, Time = DateTime.Now };
+
+        private void FarleyTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.Source is TabControl && MeetingTabItem.IsSelected)
+            {
+                UpdateMeetingTabItem();
+            }
+            else
+            {
+
+            }
+        }
+
+        private async void UpdateMeetingTabItem()
+        {
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetAsync(Tie + "People");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+
+                    var populii = JsonConvert.DeserializeObject<List<Person>>(json);
+
+                    foreach (var item in populii)
+                    {
+                        PersonListBox.Items.Add(item.Name);
+                    }
+                }
+            }
+        }
     }
 }
