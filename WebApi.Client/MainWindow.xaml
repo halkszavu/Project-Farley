@@ -139,6 +139,42 @@
                     <GroupBox Grid.Row="2" Grid.Column="0" Header="Jegyzetek">
                         <TextBox x:Name="MeetingNotesTextBox" Margin="10,10,10,2" TextWrapping="Wrap" Text="TextBox" Grid.Row="1" AcceptsReturn="True" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" SpellCheck.IsEnabled="True"/>
                     </GroupBox>
+                    <Button x:Name="NewMeetingButton" HorizontalAlignment="Left" Margin="66,4,0,0" VerticalAlignment="Top" Width="23" Height="23" Click="NewMeetingButton_Click" Grid.Row="1">
+                        <TextBlock TextAlignment="Center" Text="+" RenderTransformOrigin="0.5,0.65">
+                            <TextBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="2.3" ScaleY="2.3"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                    </Button>
+                    <Button x:Name="NextMeetingButton" HorizontalAlignment="Left" Margin="38,4,0,0" VerticalAlignment="Top" Width="23" Height="23" Click="NextMeetingButton_Click" Grid.Row="1">
+                        <TextBlock TextAlignment="Center" Text=">" RenderTransformOrigin="0.5,0.65">
+                            <TextBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="2.3" ScaleY="2.3"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                    </Button>
+                    <Button x:Name="PreviousMeetingButton" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Width="23" Height="23" Click="PreviousMeetingButton_Click" Grid.Row="1">
+                        <TextBlock TextAlignment="Center" Text="&#x003C;" RenderTransformOrigin="0.6,0.65">
+                            <TextBlock.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="2.3" ScaleY="2.3"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                    </Button>
                     <TextBox x:Name="MeetingPlaceTextBox" Height="23" Margin="59,10,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
                     <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,11,0,0" TextWrapping="Wrap" Text="Helyszín" VerticalAlignment="Top" Height="16" Width="44"/>
                     <ListBox x:Name="MeetingAttendeesListBox" Margin="10,38,10,1"/>
