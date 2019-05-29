@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using WebApi.Bll.Dtos;
 using WebApi.Bll.Services;
+using WebApi.Bll.Exceptions;
 using WebApi.DAL;
 
 namespace WebApi.API
@@ -62,6 +64,16 @@ namespace WebApi.API
                 o.AssumeDefaultVersionWhenUnspecified = true;
                 o.DefaultApiVersion = new ApiVersion(1, 0);
                 o.ApiVersionReader = new HeaderApiVersionReader("x-api-version");
+            });
+
+            services.AddProblemDetails(options =>
+            {
+                options.Map<EntityNotFoundException>(ex =>
+                new ProblemDetails
+                {
+                    Title = "Entity Not Found",
+                    Status = StatusCodes.Status404NotFound,
+                });
             });
 
             services.AddSwaggerDocument();
