@@ -35,25 +35,25 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <returns>List of Persons</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Person>>> Get() => mapper.Map<List<Person>>(await personService.GetPersonsAsync()).ToList();
+        public async Task<ActionResult<IEnumerable<Person>>> GetAsync() => mapper.Map<List<Person>>(await personService.GetPersonsAsync()).ToList();
 
-        // GET: api/People/5
+        // GET: api/People/byId5
         /// <summary>
         /// Gets a person from the DB by Id
         /// </summary>
         /// <param name="id">Integer personId</param>
         /// <returns>Person instance</returns>
         [HttpGet("byId{id}")]
-        public async Task<ActionResult<Person>> Get(int id) => mapper.Map<Person>(await personService.GetPersonAsync(id));
+        public async Task<ActionResult<Person>> GetAsync(int id) => mapper.Map<Person>(await personService.GetPersonAsync(id));
 
-        // GET: api/People/name
+        // GET: api/People/byNamename
         /// <summary>
         /// Gets a person from the DB by name (if their name contains the name, it will return the first person it found)
         /// </summary>
         /// <param name="name">Name or part of the name of the person</param>
         /// <returns>Person instance</returns>
         [HttpGet("byName{name}")]
-        public async Task<ActionResult<Person>> Get(string name) => mapper.Map<Person>(await personService.GetFirstPersonAsync(name));
+        public async Task<ActionResult<Person>> GetAsync(string name) => mapper.Map<Person>(await personService.GetFirstPersonAsync(name));
 
         //POST:api/People
         /// <summary>
@@ -62,13 +62,32 @@ namespace WebApi.API.Controllers
         /// <param name="person"></param>
         /// <returns>Person to insert into the database</returns>
         [HttpPost]
-        public async Task<ActionResult<Person>> Post([FromBody] Person person)
+        public async Task<ActionResult<Person>> PostAsync([FromBody] Person person)
         {
             var created = await personService
                 .InsertPersonAsync(mapper.Map<Person>(person));
 
             return CreatedAtAction(
-                        nameof(Get),
+                        nameof(GetAsync),
+                        new { id = created.ID },
+                        mapper.Map<Person>(created)
+                );
+        }
+
+        //POST:api/People
+        /// <summary>
+        /// Inserts a new person into the database, even if a person with the same name exists.
+        /// </summary>
+        /// <param name="person"></param>
+        /// <returns>Person to insert into the database</returns>
+        [HttpPost("force")]
+        public async Task<ActionResult<Person>> ForcePostAsync([FromBody] Person person)
+        {
+            var created = await personService
+                .InsertSamePersonAsync(mapper.Map<Person>(person));
+
+            return CreatedAtAction(
+                        nameof(GetAsync),
                         new { id = created.ID },
                         mapper.Map<Person>(created)
                 );
@@ -81,7 +100,7 @@ namespace WebApi.API.Controllers
         /// <param name="id">Integer personId</param>
         /// <param name="person">Person to update to</param>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Person person)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] Person person)
         {
             await personService.UpdatePersonAsync(id, mapper.Map<Person>(person));
             return NoContent();
