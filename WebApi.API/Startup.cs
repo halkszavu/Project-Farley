@@ -74,6 +74,12 @@ namespace WebApi.API
                     Title = "Entity Not Found",
                     Status = StatusCodes.Status404NotFound,
                 });
+                options.Map<DuplicateEntityException>(ex =>
+                new ProblemDetails
+                {
+                    Title = "Duplicate of the same entity found",
+                    Status = StatusCodes.Status418ImATeapot,
+                });
             });
 
             services.AddSwaggerDocument();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApi.Bll.Exceptions;
@@ -33,6 +34,17 @@ namespace WebApi.Bll.Services
         public async Task<IEnumerable<Person>> GetPersonsAsync(DateTime dateOfBirth) => await velho.Populii.Include(p => p.DateOfBirth.Subtract(dateOfBirth) <= TimeSpan.FromSeconds(86400)).ToListAsync(); //NOTE: Nem fog SQL-ként lefutni, mindent a kódban fog megcsinálni. Lehet valahogy javítani?
 
         public async Task<Person> InsertPersonAsync(Person newPerson)
+        {
+            if (velho.Populii.First(p => p.Name.Contains(newPerson.Name)) != null)
+            {
+                throw new DuplicateEntityException("There is a person with the same/similar name");
+            }
+            velho.Populii.Add(newPerson.NullId());
+            await velho.SaveChangesAsync();
+            return newPerson;
+        }
+
+        public async Task<Person> InsertSamePersonAsync(Person newPerson)
         {
             velho.Populii.Add(newPerson.NullId());
             await velho.SaveChangesAsync();
