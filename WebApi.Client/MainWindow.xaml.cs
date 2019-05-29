@@ -262,5 +262,20 @@ namespace WebApi.Client
                 }
             }
         }
+
+        private void NewMeetingButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void NextMeetingButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PreviousMeetingButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

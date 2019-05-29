@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -54,6 +55,14 @@ namespace WebApi.API
                 cfg.CreateMap<Entities.Note, Note>().ReverseMap();
             });
 #pragma warning restore CS0618 // Type or member is obsolete
+
+            services.AddApiVersioning(o =>
+            {
+                o.ReportApiVersions = true;
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(1, 0);
+                o.ApiVersionReader = new HeaderApiVersionReader("x-api-version");
+            });
 
             services.AddSwaggerDocument();
         }
