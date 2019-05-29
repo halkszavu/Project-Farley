@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApi.Bll.Exceptions;
+using WebApi.Bll.Extensions;
 using WebApi.DAL;
 using WebApi.Entities;
 
@@ -33,7 +34,7 @@ namespace WebApi.Bll.Services
 
         public async Task<Person> InsertPersonAsync(Person newPerson)
         {
-            velho.Populii.Add(newPerson);
+            velho.Populii.Add(newPerson.NullId());
             await velho.SaveChangesAsync();
             return newPerson;
         }

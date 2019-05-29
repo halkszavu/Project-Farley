@@ -65,7 +65,7 @@ namespace WebApi.API.Controllers
         public async Task<ActionResult<Person>> Post([FromBody] Person person)
         {
             var created = await personService
-                .InsertPersonAsync(mapper.Map<Entities.Person>(person));
+                .InsertPersonAsync(mapper.Map<Person>(person));
 
             return CreatedAtAction(
                         nameof(Get),
@@ -83,7 +83,7 @@ namespace WebApi.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Person person)
         {
-            await personService.UpdatePersonAsync(id, mapper.Map<Entities.Person>(person));
+            await personService.UpdatePersonAsync(id, mapper.Map<Person>(person));
             return NoContent();
         }
     }
