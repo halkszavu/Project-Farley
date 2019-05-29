@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
+using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using WebApi.Bll.Dtos;
 using WebApi.Bll.Services;
+using WebApi.Bll.Exceptions;
 using WebApi.DAL;
 
 namespace WebApi.API
@@ -64,15 +66,31 @@ namespace WebApi.API
                 o.ApiVersionReader = new HeaderApiVersionReader("x-api-version");
             });
 
+            services.AddProblemDetails(options =>
+            {
+                options.Map<EntityNotFoundException>(ex =>
+                new ProblemDetails
+                {
+                    Title = "Entity Not Found",
+                    Status = StatusCodes.Status404NotFound,
+                });
+                options.Map<DuplicateEntityException>(ex =>
+                new ProblemDetails
+                {
+                    Title = "Duplicate of the same entity found",
+                    Status = StatusCodes.Status418ImATeapot,
+                });
+            });
+
             services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseSwagger();
             app.UseSwaggerUi3();
-
+            app.UseProblemDetails();
             app.UseMvc();
         }
     }

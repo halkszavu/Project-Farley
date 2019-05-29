@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApi.Bll.Exceptions;
+using WebApi.Bll.Extensions;
 using WebApi.DAL;
 using WebApi.Entities;
 
@@ -33,7 +35,18 @@ namespace WebApi.Bll.Services
 
         public async Task<Person> InsertPersonAsync(Person newPerson)
         {
-            velho.Populii.Add(newPerson);
+            if (velho.Populii.First(p => p.Name.Contains(newPerson.Name)) != null)
+            {
+                throw new DuplicateEntityException("There is a person with the same/similar name");
+            }
+            velho.Populii.Add(newPerson.NullId());
+            await velho.SaveChangesAsync();
+            return newPerson;
+        }
+
+        public async Task<Person> InsertSamePersonAsync(Person newPerson)
+        {
+            velho.Populii.Add(newPerson.NullId());
             await velho.SaveChangesAsync();
             return newPerson;
         }

@@ -2,7 +2,7 @@
 
 namespace WebApi.Bll.Exceptions
 {
-    class EntityNotFoundException : Exception
+    public class EntityNotFoundException : Exception
     {
         public EntityNotFoundException() { }
 

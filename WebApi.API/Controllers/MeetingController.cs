@@ -34,7 +34,7 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <returns>List of Meetings</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Meeting>>> Get() => mapper.Map<List<Meeting>>(await meetingService.GetMeetingsAsync()).ToList();
+        public async Task<ActionResult<IEnumerable<Meeting>>> GetAsync() => mapper.Map<List<Meeting>>(await meetingService.GetMeetingsAsync()).ToList();
 
         // GET: api/Meeting/5
         /// <summary>
@@ -43,7 +43,7 @@ namespace WebApi.API.Controllers
         /// <param name="id">Integer meetingId</param>
         /// <returns>Meeting instance</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Meeting>> Get(int id) => mapper.Map<Meeting>(await meetingService.GetMeetingAsync(id));
+        public async Task<ActionResult<Meeting>> GetAsync(int id) => mapper.Map<Meeting>(await meetingService.GetMeetingAsync(id));
 
         // PUT: api/Meeting/5
         /// <summary>
@@ -52,7 +52,7 @@ namespace WebApi.API.Controllers
         /// <param name="id">Integer meetingId</param>
         /// <param name="meeting">Meeting to update to</param>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Meeting meeting)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] Meeting meeting)
         {
             await meetingService.UpdateMeetingAsync(id, mapper.Map<Entities.Meeting>(meeting));
             return NoContent();
