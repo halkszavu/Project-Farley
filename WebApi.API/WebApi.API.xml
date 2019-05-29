@@ -11,20 +11,20 @@
             <param name="service">IMeetingService service for the layer below</param>
             <param name="cartographer">IMapper mapping the Bll and DAL layers</param>
         </member>
-        <member name="M:WebApi.API.Controllers.MeetingController.Get">
+        <member name="M:WebApi.API.Controllers.MeetingController.GetAsync">
             <summary>
             Gets all the meetings (Meeting entities) from the database
             </summary>
             <returns>List of Meetings</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.MeetingController.Get(System.Int32)">
+        <member name="M:WebApi.API.Controllers.MeetingController.GetAsync(System.Int32)">
             <summary>
             Gets a meeting from the DB
             </summary>
             <param name="id">Integer meetingId</param>
             <returns>Meeting instance</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.MeetingController.Put(System.Int32,WebApi.Bll.Dtos.Meeting)">
+        <member name="M:WebApi.API.Controllers.MeetingController.PutAsync(System.Int32,WebApi.Bll.Dtos.Meeting)">
             <summary>
             Updates the meeting in the id position
             </summary>
@@ -46,21 +46,21 @@
             <param name="service">INoteService service for the layer below</param>
             <param name="cartographer">IMapper mapping the Bll and DAL layers</param>
         </member>
-        <member name="M:WebApi.API.Controllers.NoteController.Get(System.Int32)">
+        <member name="M:WebApi.API.Controllers.NoteController.GetAsync(System.Int32)">
             <summary>
             Gets a specified Note with the specified person
             </summary>
             <param name="id">Integer personId</param>
             <returns>The node associated with the person</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.NoteController.Post(System.Int32,WebApi.Bll.Dtos.Note)">
+        <member name="M:WebApi.API.Controllers.NoteController.PostAsync(System.Int32,WebApi.Bll.Dtos.Note)">
             <summary>
             Inserts a Note to the specified Person
             </summary>
             <param name="personId">Integer personId</param>
             <param name="note">The note for the person specified</param>
         </member>
-        <member name="M:WebApi.API.Controllers.NoteController.Put(System.Int32,WebApi.Bll.Dtos.Note)">
+        <member name="M:WebApi.API.Controllers.NoteController.PutAsync(System.Int32,WebApi.Bll.Dtos.Note)">
             <summary>
             Updates the Note to the specified Person
             </summary>
@@ -79,34 +79,41 @@
             <param name="service">IPersonService service for the layer below</param>
             <param name="cartographer">IMapper mapping the Bll and DAL layers</param>
         </member>
-        <member name="M:WebApi.API.Controllers.PeopleController.Get">
+        <member name="M:WebApi.API.Controllers.PeopleController.GetAsync">
             <summary>
             Gets all the people (Person entities) from the database
             </summary>
             <returns>List of Persons</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.PeopleController.Get(System.Int32)">
+        <member name="M:WebApi.API.Controllers.PeopleController.GetAsync(System.Int32)">
             <summary>
             Gets a person from the DB by Id
             </summary>
             <param name="id">Integer personId</param>
             <returns>Person instance</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.PeopleController.Get(System.String)">
+        <member name="M:WebApi.API.Controllers.PeopleController.GetAsync(System.String)">
             <summary>
             Gets a person from the DB by name (if their name contains the name, it will return the first person it found)
             </summary>
             <param name="name">Name or part of the name of the person</param>
             <returns>Person instance</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.PeopleController.Post(WebApi.Entities.Person)">
+        <member name="M:WebApi.API.Controllers.PeopleController.PostAsync(WebApi.Entities.Person)">
             <summary>
             Inserts a new person into the database
             </summary>
             <param name="person"></param>
             <returns>Person to insert into the database</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.PeopleController.Put(System.Int32,WebApi.Entities.Person)">
+        <member name="M:WebApi.API.Controllers.PeopleController.ForcePostAsync(WebApi.Entities.Person)">
+            <summary>
+            Inserts a new person into the database, even if a person with the same name exists.
+            </summary>
+            <param name="person"></param>
+            <returns>Person to insert into the database</returns>
+        </member>
+        <member name="M:WebApi.API.Controllers.PeopleController.PutAsync(System.Int32,WebApi.Entities.Person)">
             <summary>
             Updates an existing person in the id position
             </summary>
