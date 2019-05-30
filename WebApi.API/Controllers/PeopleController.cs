@@ -36,5 +36,14 @@ namespace WebApi.API.Controllers
         /// <returns>List of Persons</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetAsync() => mapper.Map<List<Person>>(await personService.GetPersonsAsync()).ToList();
+
+        //GET: api/People/name
+        /// <summary>
+        /// Returns a list of person whose name contains the name required
+        /// </summary>
+        /// <param name="name">The name or partial name of the people to get</param>
+        /// <returns>List of person</returns>
+        [HttpGet("{name}")]
+        public async Task<ActionResult<IEnumerable<Person>>> GetAsync(string name) => mapper.Map<List<Person>>(await personService.GetPeopleNameAsync(name));
     }
 }
