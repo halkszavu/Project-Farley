@@ -280,5 +280,10 @@ namespace WebApi.Client
         {
 
         }
+
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            //Megváltozott a "TextBox" tartalma (valamilyen módon)
+        }
     }
 }

@@ -186,7 +186,7 @@
                     <TextBox x:Name="MeetingPlaceTextBox" Height="23" Margin="59,10,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
                     <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,11,0,0" TextWrapping="Wrap" Text="Helyszín" VerticalAlignment="Top" Height="16" Width="44"/>
                     <ListBox x:Name="MeetingAttendeesListBox" Margin="10,38,10,1"/>
-                    <TextBox x:Name="textBox" Grid.Column="1" Height="23" Margin="3,4,10,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBox" Grid.Column="1" Height="23" Margin="3,4,10,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" KeyUp="TextBox_KeyUp"/>
 
                 </Grid>
             </TabItem>
