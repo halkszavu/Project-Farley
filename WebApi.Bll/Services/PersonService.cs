@@ -24,6 +24,8 @@ namespace WebApi.Bll.Services
 
         public async Task<Person> GetFirstPersonAsync(string personName) => await velho.Populii.FirstOrDefaultAsync(p => p.Name.Contains(personName));
 
+        public async Task<IEnumerable<Person>> GetPeopleNameAsync(string personName) => await velho.Populii.Include(p => p.Name.Contains(personName)).ToListAsync();
+
         public async Task<Person> GetPersonAsync(int personId) => await velho.Populii
             .Include(p => p.PersonMeetings)
                 .ThenInclude(pm => pm.Meeting)

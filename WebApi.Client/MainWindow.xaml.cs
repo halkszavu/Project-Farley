@@ -48,7 +48,7 @@ namespace WebApi.Client
             using (var client =  new HttpClient())
             {
                 var content = new StringContent(JsonConvert.SerializeObject(PrimePerson()),Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(Tie + "People", content);
+                var response = await client.PostAsync(Tie + "Person", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -63,7 +63,7 @@ namespace WebApi.Client
         {
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(new Uri(Tie + $"People/byName{PersonNameTextBox.Text}"));
+                var response = await client.GetAsync(new Uri(Tie + $"Person/byName{PersonNameTextBox.Text}"));
 
                 if(response.IsSuccessStatusCode)
                 {
@@ -79,7 +79,7 @@ namespace WebApi.Client
             using (var client = new HttpClient())
             {
                 var content = new StringContent(JsonConvert.SerializeObject(PrimePerson()), Encoding.UTF8, "application/json");
-                var response = await client.PutAsync(Tie + "People", content);
+                var response = await client.PutAsync(Tie + "Person", content);
 
                 if (response.IsSuccessStatusCode)
                 {
