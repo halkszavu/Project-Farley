@@ -7,6 +7,11 @@ namespace WebApi.Bll.Services
 {
     public interface IPersonService
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="personId"></param>
+        /// <returns></returns>
         Task<Person> GetPersonAsync(int personId);
         Task<Person> GetFirstPersonAsync(string personName);
         Task<IEnumerable<Person>> GetPersonsAsync(DateTime dateOfBirth);
@@ -18,19 +23,4 @@ namespace WebApi.Bll.Services
         void DeletePerson(int personId);
     }
 
-    public interface IMeetingService
-    {
-        Task<Meeting> CreateMeetingAsync(int personId, Meeting meeting);
-        Task<Meeting> GetMeetingAsync(int meetingId);
-        Task<IEnumerable<Meeting>> GetMeetingsAsync(Predicate<DateTime> predicate);
-        Task<IEnumerable<Meeting>> GetMeetingsAsync();
-        Task UpdateMeetingAsync(int meetingId, Meeting updatedMeeting);
-    }
-
-    public interface INoteService
-    {
-        Task<Note> InsertNoteAsync(Note newNote);
-        Task UpdateNoteAsync(int noteId, Note updatedNote);
-        Task<Note> GetNoteAsync(int personId);
-    }
 }
