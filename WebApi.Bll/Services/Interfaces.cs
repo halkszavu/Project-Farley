@@ -11,6 +11,7 @@ namespace WebApi.Bll.Services
         Task<Person> GetFirstPersonAsync(string personName);
         Task<IEnumerable<Person>> GetPersonsAsync(DateTime dateOfBirth);
         Task<IEnumerable<Person>> GetPersonsAsync();
+        Task<IEnumerable<Person>> GetPeopleNameAsync(string personName);
         Task<Person> InsertSamePersonAsync(Person newPerson);
         Task<Person> InsertPersonAsync(Person newPerson);
         Task UpdatePersonAsync(int personId, Person updatedPerson);
