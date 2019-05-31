@@ -35,6 +35,7 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <param name="id">Integer personId</param>
         /// <returns>Person instance</returns>
+        [ApiVersion("2.0")]
         [HttpGet("byId{id}")]
         public async Task<ActionResult<Person>> GetAsync(int id) => mapper.Map<Person>(await personService.GetPersonAsync(id));
 
@@ -44,6 +45,7 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <param name="name">Name or part of the name of the person</param>
         /// <returns>Person instance</returns>
+        [ApiVersion("2.0")]
         [HttpGet("byName{name}")]
         public async Task<ActionResult<Person>> GetAsync(string name) => mapper.Map<Person>(await personService.GetFirstPersonAsync(name));
 
@@ -53,6 +55,7 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <param name="person"></param>
         /// <returns>Person to insert into the database</returns>
+        [ApiVersion("2.0")]
         [HttpPost]
         public async Task<ActionResult<Person>> PostAsync([FromBody] Person person)
         {
@@ -72,6 +75,7 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <param name="person"></param>
         /// <returns>Person to insert into the database</returns>
+        [ApiVersion("2.0")]
         [HttpPost("force")]
         public async Task<ActionResult<Person>> ForcePostAsync([FromBody] Person person)
         {
@@ -91,6 +95,7 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <param name="id">Integer personId</param>
         /// <param name="person">Person to update to</param>
+        [ApiVersion("2.0")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] Person person)
         {

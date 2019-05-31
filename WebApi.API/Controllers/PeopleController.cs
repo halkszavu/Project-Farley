@@ -11,6 +11,7 @@ namespace WebApi.API.Controllers
     /// <summary>
     /// API Controller for multiple person entities in the database, gets and sets via IPersonService, using json
     /// </summary>
+    [ApiVersion("1.0", Deprecated = true)]
     [Route("api/[controller]")]
     [ApiController]
     public class PeopleController : ControllerBase
@@ -34,6 +35,7 @@ namespace WebApi.API.Controllers
         /// Gets all the people (Person entities) from the database
         /// </summary>
         /// <returns>List of Persons</returns>
+        [ApiVersion("2.0")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Person>>> GetAsync() => mapper.Map<List<Person>>(await personService.GetPersonsAsync()).ToList();
 
@@ -43,6 +45,7 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <param name="name">The name or partial name of the people to get</param>
         /// <returns>List of person</returns>
+        [ApiVersion("2.0")]
         [HttpGet("{name}")]
         public async Task<ActionResult<IEnumerable<Person>>> GetAsync(string name) => mapper.Map<List<Person>>(await personService.GetPeopleNameAsync(name));
     }

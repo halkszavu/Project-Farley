@@ -69,7 +69,7 @@
         </member>
         <member name="T:WebApi.API.Controllers.PeopleController">
             <summary>
-            API Controller for person entities in the database, gets and sets via IPersonService, using json
+            API Controller for multiple person entities in the database, gets and sets via IPersonService, using json
             </summary>
         </member>
         <member name="M:WebApi.API.Controllers.PeopleController.#ctor(WebApi.Bll.Services.IPersonService,AutoMapper.IMapper)">
@@ -85,35 +85,54 @@
             </summary>
             <returns>List of Persons</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.PeopleController.GetAsync(System.Int32)">
+        <member name="M:WebApi.API.Controllers.PeopleController.GetAsync(System.String)">
+            <summary>
+            Returns a list of person whose name contains the name required
+            </summary>
+            <param name="name">The name or partial name of the people to get</param>
+            <returns>List of person</returns>
+        </member>
+        <member name="T:WebApi.API.Controllers.PersonController">
+            <summary>
+            API Controller for single person entities in the database, gets and sets via IPersonService, using json
+            </summary>
+        </member>
+        <member name="M:WebApi.API.Controllers.PersonController.#ctor(WebApi.Bll.Services.IPersonService,AutoMapper.IMapper)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="service">IPersonService service for the layer below</param>
+            <param name="cartographer">IMapper mapping the Bll and DAL layers</param>
+        </member>
+        <member name="M:WebApi.API.Controllers.PersonController.GetAsync(System.Int32)">
             <summary>
             Gets a person from the DB by Id
             </summary>
             <param name="id">Integer personId</param>
             <returns>Person instance</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.PeopleController.GetAsync(System.String)">
+        <member name="M:WebApi.API.Controllers.PersonController.GetAsync(System.String)">
             <summary>
             Gets a person from the DB by name (if their name contains the name, it will return the first person it found)
             </summary>
             <param name="name">Name or part of the name of the person</param>
             <returns>Person instance</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.PeopleController.PostAsync(WebApi.Entities.Person)">
+        <member name="M:WebApi.API.Controllers.PersonController.PostAsync(WebApi.Entities.Person)">
             <summary>
             Inserts a new person into the database
             </summary>
             <param name="person"></param>
             <returns>Person to insert into the database</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.PeopleController.ForcePostAsync(WebApi.Entities.Person)">
+        <member name="M:WebApi.API.Controllers.PersonController.ForcePostAsync(WebApi.Entities.Person)">
             <summary>
             Inserts a new person into the database, even if a person with the same name exists.
             </summary>
             <param name="person"></param>
             <returns>Person to insert into the database</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.PeopleController.PutAsync(System.Int32,WebApi.Entities.Person)">
+        <member name="M:WebApi.API.Controllers.PersonController.PutAsync(System.Int32,WebApi.Entities.Person)">
             <summary>
             Updates an existing person in the id position
             </summary>
