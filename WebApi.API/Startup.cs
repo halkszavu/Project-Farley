@@ -78,7 +78,7 @@ namespace WebApi.API
                 new ProblemDetails
                 {
                     Title = "Duplicate of the same entity found",
-                    Status = StatusCodes.Status418ImATeapot,
+                    Status = StatusCodes.Status405MethodNotAllowed,
                 });
             });
 
