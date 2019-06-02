@@ -62,7 +62,7 @@ namespace WebApi.API
             {
                 o.ReportApiVersions = true;
                 o.AssumeDefaultVersionWhenUnspecified = true;
-                o.DefaultApiVersion = new ApiVersion(1, 0);
+                o.DefaultApiVersion = new ApiVersion(2, 0);
                 o.ApiVersionReader = new HeaderApiVersionReader("x-api-version");
             });
 
@@ -78,7 +78,7 @@ namespace WebApi.API
                 new ProblemDetails
                 {
                     Title = "Duplicate of the same entity found",
-                    Status = StatusCodes.Status418ImATeapot,
+                    Status = StatusCodes.Status405MethodNotAllowed,
                 });
             });
 

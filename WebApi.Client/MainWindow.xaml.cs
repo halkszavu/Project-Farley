@@ -30,10 +30,13 @@ namespace WebApi.Client
         private int henkilo;
         //tapaaminen
         private int tapa;
+        List<Person> people;
 
         public MainWindow()
         {
             InitializeComponent();
+            people = new List<Person>();
+            PersonListBox.ItemsSource = people;
         }
 
         private async void NewPersonButton_Click(object sender, RoutedEventArgs e)
@@ -45,7 +48,7 @@ namespace WebApi.Client
             using (var client =  new HttpClient())
             {
                 var content = new StringContent(JsonConvert.SerializeObject(PrimePerson()),Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(Tie + "People", content);
+                var response = await client.PostAsync(Tie + "Person", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -60,7 +63,7 @@ namespace WebApi.Client
         {
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(new Uri(Tie + $"People/byName{PersonNameTextBox.Text}"));
+                var response = await client.GetAsync(new Uri(Tie + $"Person/byName{PersonNameTextBox.Text}"));
 
                 if(response.IsSuccessStatusCode)
                 {
@@ -76,7 +79,7 @@ namespace WebApi.Client
             using (var client = new HttpClient())
             {
                 var content = new StringContent(JsonConvert.SerializeObject(PrimePerson()), Encoding.UTF8, "application/json");
-                var response = await client.PutAsync(Tie + "People", content);
+                var response = await client.PutAsync(Tie + "Person", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -257,7 +260,7 @@ namespace WebApi.Client
 
                     foreach (var item in populii)
                     {
-                        PersonListBox.Items.Add(item.Name);
+                        people.Add(item);
                     }
                 }
             }
@@ -276,6 +279,11 @@ namespace WebApi.Client
         private void PreviousMeetingButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void TextBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            //Megváltozott a "TextBox" tartalma (valamilyen módon)
         }
     }
 }
