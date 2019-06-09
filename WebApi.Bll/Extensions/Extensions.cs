@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using WebApi.Entities;
+﻿using WebApi.Entities;
 
 namespace WebApi.Bll.Extensions
 {

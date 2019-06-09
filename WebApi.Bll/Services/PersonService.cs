@@ -37,13 +37,14 @@ namespace WebApi.Bll.Services
 
         public async Task<Person> InsertPersonAsync(Person newPerson)
         {
-            if (velho.Populii.First(p => p.Name.Contains(newPerson.Name)) != null)
+            if (velho.Populii.FirstOrDefault(p => p.Name.Contains(newPerson.Name)) == null)
             {
-                throw new DuplicateEntityException("There is a person with the same/similar name");
+                velho.Populii.Add(newPerson.NullId());
+                await velho.SaveChangesAsync();
+                return newPerson;
             }
-            velho.Populii.Add(newPerson.NullId());
-            await velho.SaveChangesAsync();
-            return newPerson;
+            else
+                throw new DuplicateEntityException("There is a person with the same/similar name");
         }
 
         public async Task<Person> InsertSamePersonAsync(Person newPerson)
