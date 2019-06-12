@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Bll.Dtos;
 using WebApi.Bll.Services;
+using WebApi.Entities;
 
 namespace WebApi.API.Controllers
 {
@@ -34,7 +35,7 @@ namespace WebApi.API.Controllers
         /// </summary>
         /// <returns>List of Meetings</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Meeting>>> GetAsync() => mapper.Map<List<Meeting>>(await meetingService.GetMeetingsAsync()).ToList();
+        public async Task<ActionResult<IEnumerable<MeetingDto>>> GetAsync() => mapper.Map<List<MeetingDto>>(await meetingService.GetMeetingsAsync()).ToList();
 
         // GET: api/Meeting/5
         /// <summary>
@@ -43,7 +44,7 @@ namespace WebApi.API.Controllers
         /// <param name="id">Integer meetingId</param>
         /// <returns>Meeting instance</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Meeting>> GetAsync(int id) => mapper.Map<Meeting>(await meetingService.GetMeetingAsync(id));
+        public async Task<ActionResult<MeetingDto>> GetAsync(int id) => mapper.Map<MeetingDto>(await meetingService.GetMeetingAsync(id));
 
         // PUT: api/Meeting/5
         /// <summary>
@@ -52,9 +53,9 @@ namespace WebApi.API.Controllers
         /// <param name="id">Integer meetingId</param>
         /// <param name="meeting">Meeting to update to</param>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] Meeting meeting)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] MeetingDto meeting)
         {
-            await meetingService.UpdateMeetingAsync(id, mapper.Map<Entities.Meeting>(meeting));
+            await meetingService.UpdateMeetingAsync(id, mapper.Map<Meeting>(meeting));
             return NoContent();
         }
 
@@ -66,6 +67,6 @@ namespace WebApi.API.Controllers
         /// <param name="meeting">The meeting</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult<Meeting> Post(int personId, [FromBody] Meeting meeting) => mapper.Map<Meeting>(meetingService.CreateMeetingAsync(personId, mapper.Map<Entities.Meeting>(meeting)));
+        public ActionResult<MeetingDto> Post(int personId, [FromBody] MeetingDto meeting) => mapper.Map<MeetingDto>(meetingService.CreateMeetingAsync(personId, mapper.Map<Meeting>(meeting)));
     }
 }

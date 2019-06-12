@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebApi.Bll.Dtos;
 using WebApi.Bll.Services;
+using WebApi.Entities;
 
 namespace WebApi.API.Controllers
 {
@@ -31,7 +32,7 @@ namespace WebApi.API.Controllers
         /// <param name="id">Integer personId</param>
         /// <returns>The node associated with the person</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Note>> GetAsync(int id) => mapper.Map<Note>(await noteService.GetNoteAsync(id));
+        public async Task<ActionResult<NoteDto>> GetAsync(int id) => mapper.Map<NoteDto>(await noteService.GetNoteAsync(id));
 
         // POST: api/Note
         /// <summary>
@@ -40,15 +41,14 @@ namespace WebApi.API.Controllers
         /// <param name="personId">Integer personId</param>
         /// <param name="note">The note for the person specified</param>
         [HttpPost]
-        public async Task<ActionResult<Note>> PostAsync(int personId, [FromBody] Note note)
+        public async Task<ActionResult<NoteDto>> PostAsync(int personId, [FromBody] NoteDto note)
         {
-            var created = await noteService
-                  .InsertNoteAsync(mapper.Map<Entities.Note>(note));
+            var created = await noteService.InsertNoteAsync(mapper.Map<Note>(note));
 
             return CreatedAtAction(
                         nameof(GetAsync),
                         new { id = created.ID },
-                        mapper.Map<Note>(created)
+                        mapper.Map<NoteDto>(created)
                 );
         }
 
@@ -59,9 +59,9 @@ namespace WebApi.API.Controllers
         /// <param name="personId">Integer personId</param>
         /// <param name="note">The updated note</param>
         [HttpPut("{personId}")]
-        public async Task<IActionResult> PutAsync(int personId, [FromBody] Note note)
+        public async Task<IActionResult> PutAsync(int personId, [FromBody] NoteDto note)
         {
-            await noteService.UpdateNoteAsync(personId, mapper.Map<Entities.Note>(note));
+            await noteService.UpdateNoteAsync(personId, mapper.Map<Note>(note));
             return NoContent();
         }
     }
