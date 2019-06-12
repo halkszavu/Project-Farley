@@ -5,7 +5,7 @@ using WebApi.Entities;
 
 namespace WebApi.Bll.Dtos
 {
-    public class Person
+    public class PersonDto
     {
         public int ID { get; set; }
         [Required(ErrorMessage ="Person name is mandatory", AllowEmptyStrings = false)]
@@ -14,6 +14,6 @@ namespace WebApi.Bll.Dtos
         public MartialState MartialState { get; set; }
         public SiblingState SiblingState { get; set; }
 
-        public List<Meeting> Meetings { get; set; }
+        public List<MeetingDto> Meetings { get; set; }
     }
 }

@@ -45,16 +45,16 @@ namespace WebApi.API
 #pragma warning disable CS0618 // Type or member is obsolete
             services.AddAutoMapper(cfg =>
             {
-                cfg.CreateMap<Entities.Person, Person>()
+                cfg.CreateMap<Entities.Person, PersonDto>()
                 .AfterMap((p, dto, ctx) =>
                     dto.Meetings = p.PersonMeetings.Select(pm =>
-                        ctx.Mapper.Map<Meeting>(pm.Meeting)).ToList()).ReverseMap();
-                cfg.CreateMap<Entities.Meeting, Meeting>()
+                        ctx.Mapper.Map<MeetingDto>(pm.Meeting)).ToList()).ReverseMap();
+                cfg.CreateMap<Entities.Meeting, MeetingDto>()
                 .AfterMap((m, dto, ctx) =>
                     dto.People = m.PersonMeetings.Select(pm =>
-                      ctx.Mapper.Map<Person>(pm.Person)).ToList()).ReverseMap();
-                cfg.CreateMap<Entities.Person, Person>().ReverseMap();
-                cfg.CreateMap<Entities.Note, Note>().ReverseMap();
+                      ctx.Mapper.Map<PersonDto>(pm.Person)).ToList()).ReverseMap();
+                cfg.CreateMap<Entities.Person, PersonDto>().ReverseMap();
+                cfg.CreateMap<Entities.Note, NoteDto>().ReverseMap();
             });
 #pragma warning restore CS0618 // Type or member is obsolete
 

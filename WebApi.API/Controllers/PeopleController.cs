@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Bll.Services;
+using WebApi.Bll.Dtos;
 using WebApi.Entities;
 
 namespace WebApi.API.Controllers
@@ -37,7 +38,7 @@ namespace WebApi.API.Controllers
         /// <returns>List of Persons</returns>
         [ApiVersion("2.0")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Person>>> GetAsync() => mapper.Map<List<Person>>(await personService.GetPersonsAsync()).ToList();
+        public async Task<ActionResult<IEnumerable<PersonDto>>> GetAsync() => mapper.Map<List<PersonDto>>(await personService.GetPersonsAsync()).ToList();
 
         //GET: api/People/name
         /// <summary>
@@ -47,6 +48,6 @@ namespace WebApi.API.Controllers
         /// <returns>List of person</returns>
         [ApiVersion("2.0")]
         [HttpGet("{name}")]
-        public async Task<ActionResult<IEnumerable<Person>>> GetAsync(string name) => mapper.Map<List<Person>>(await personService.GetPeopleNameAsync(name));
+        public async Task<ActionResult<IEnumerable<PersonDto>>> GetAsync(string name) => mapper.Map<List<PersonDto>>(await personService.GetPeopleNameAsync(name));
     }
 }
