@@ -146,7 +146,7 @@
             <param name="model">A simple model that contains the username/email and the password</param>
             <returns>JWT token if the creation of the user was successful</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.UserController.Login(WebApi.Bll.Dtos.LoginDto)">
+        <member name="M:WebApi.API.Controllers.UserController.Login(WebApi.Bll.Dtos.SignInDto)">
             <summary>
             Login to the application
             </summary>

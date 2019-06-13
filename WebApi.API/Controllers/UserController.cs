@@ -58,14 +58,14 @@ namespace WebApi.API.Controllers
         /// <param name="model">A simple model that contains the username/email and the password</param>
         /// <returns>JWT token if the login was successful</returns>
         [HttpPost("login")]
-        public async Task<string> Login([FromBody] LoginDto model)
+        public async Task<string> Login([FromBody] SignInDto model)
         {
-            var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
 
             if (result.Succeeded)
             {
-                var appUser = userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                return GenerateJwtToken(model.Email, appUser);
+                var appUser = userManager.Users.SingleOrDefault(r => r.UserName == model.Username);
+                return GenerateJwtToken(model.Username, appUser);
             }
 
             throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
