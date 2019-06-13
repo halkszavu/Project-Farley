@@ -10,6 +10,7 @@ namespace WebApi.Entities
         public DateTime DateOfBirth { get; set; }
         public MartialState MartialState { get; set; }
         public SiblingState SiblingState { get; set; }
+        public byte[] RowVersion { get; set; }
 
         public ICollection<PersonMeeting> PersonMeetings { get; } = new List<PersonMeeting>();
     }

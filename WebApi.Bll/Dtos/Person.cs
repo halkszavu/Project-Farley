@@ -13,6 +13,8 @@ namespace WebApi.Bll.Dtos
         public DateTime DateOfBirth { get; set; }
         public MartialState MartialState { get; set; }
         public SiblingState SiblingState { get; set; }
+        [Required(ErrorMessage ="RowVersion is mandatory", AllowEmptyStrings = true)]
+        public byte[] RowVersion { get; set; }
 
         public List<MeetingDto> Meetings { get; set; }
     }
