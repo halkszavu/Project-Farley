@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
+using WebApi.Bll.Dtos;
 using WebApi.Entities;
 
 namespace WebApi.Client
@@ -23,13 +25,16 @@ namespace WebApi.Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        //private readonly string Tie = @"http://localhost:58637/api/";
-        private readonly string Tie = @"http://localhost:5000/api/";
+        public string Token { get; set; }
+        ///public readonly string Tie = @"http://localhost:58637/api/";
 
+       public readonly string Tie = @"http://localhost:5000/api/";
+        
         //henkilöllisyys
         private int henkilo;
+        private byte[] rowVersion;
         //tapaaminen
-        private int tapa;
+        //private int tapa;
         List<Person> people;
 
         public MainWindow()
@@ -45,8 +50,11 @@ namespace WebApi.Client
             //onko henkilö jo olemassa tietokannassa
             //jos kyllä: näyttä virheilmoituksen
 
+            rowVersion = new byte[] { };
+
             using (var client =  new HttpClient())
             {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var content = new StringContent(JsonConvert.SerializeObject(PrimePerson()),Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(Tie + "Person", content);
 
@@ -56,6 +64,10 @@ namespace WebApi.Client
 
                     LoadPerson(JsonConvert.DeserializeObject<Person>(json));
                 }
+#if DEBUG
+                else
+                    MessageBox.Show($"The response from the server :\n{response.StatusCode.ToString()}", "Http Response");
+#endif
             }
         }
 
@@ -63,9 +75,10 @@ namespace WebApi.Client
         {
             using (var client = new HttpClient())
             {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var response = await client.GetAsync(new Uri(Tie + $"Person/byName{PersonNameTextBox.Text}"));
 
-                if(response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                 {
                     var json = await response.Content.ReadAsStringAsync();
 
@@ -78,6 +91,7 @@ namespace WebApi.Client
         {
             using (var client = new HttpClient())
             {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var content = new StringContent(JsonConvert.SerializeObject(PrimePerson()), Encoding.UTF8, "application/json");
                 var response = await client.PutAsync(Tie + "Person", content);
 
@@ -94,9 +108,10 @@ namespace WebApi.Client
         {
             using (var client = new HttpClient())
             {
-                Note note = PrimeNote();
-                note.PersonID = henkilo;
-                var content = new StringContent(JsonConvert.SerializeObject(note), Encoding.UTF8, "application/json");
+                Note Note = PrimeNote();
+                Note.PersonID = henkilo;
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+                var content = new StringContent(JsonConvert.SerializeObject(Note), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(Tie + $"Note", content);
 
                 if (response.IsSuccessStatusCode)
@@ -111,15 +126,15 @@ namespace WebApi.Client
         private void InfoButton_Click(object sender, RoutedEventArgs e) => MessageBox.Show("Készítette: Perényi Botond L.\nFarley-akta kezelőfelület\n2019.05", "Info", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
 
         /// <summary>
-        /// Loads in the person to the UI
+        /// Loads in the Person to the UI
         /// </summary>
-        /// <param name="person">The <see cref="Person"/> to load</param>
-        private async void LoadPerson(Person person)
+        /// <param name="Person">The <see cref="Person"/> to load</param>
+        private async void LoadPerson(Person Person)
         {
-            PersonNameTextBox.Text = person.Name;
-            henkilo = person.ID;
+            PersonNameTextBox.Text = Person.Name;
+            henkilo = Person.ID;
 
-            switch (person.MartialState)
+            switch (Person.MartialState)
             {
                 case MartialState.Single:
                     MartialStateSingleRadioButton.IsChecked = true;
@@ -136,7 +151,7 @@ namespace WebApi.Client
                     break;
             }
 
-            switch (person.SiblingState)
+            switch (Person.SiblingState)
             {
                 case SiblingState.Eldest:
                     SiblingStateEldestRadioButton.IsChecked = true;
@@ -161,7 +176,8 @@ namespace WebApi.Client
 
             using (var client = new HttpClient())
             {
-                var response = await client.GetAsync(new Uri(Tie + $"Note/{person.ID}"));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+                var response = await client.GetAsync(new Uri(Tie + $"Note/{Person.ID}"));
 
                 if(response.IsSuccessStatusCode)
                 {
@@ -170,35 +186,41 @@ namespace WebApi.Client
                     LoadNote(JsonConvert.DeserializeObject<Note>(json));
                 }
             }
+
+            rowVersion = Person.RowVersion;
         }
 
         /// <summary>
-        /// Loads in the meeting to the UI
+        /// Loads in the Meeting to the UI
         /// </summary>
-        /// <param name="meeting">The <see cref="Meeting"/> to load</param>
-        private void LoadMeeting(Meeting meeting)
+        /// <param name="Meeting">The <see cref="Meeting"/> to load</param>
+        private void LoadMeeting(Meeting Meeting)
         {
 
         }
 
         /// <summary>
-        /// Loads in the note to the UI
+        /// Loads in the Note to the UI
         /// </summary>
-        /// <param name="note">The <see cref="Note"/> to load</param>
-        private void LoadNote(Note note) => NotesTextBox.Text = note.Notes;
+        /// <param name="Note">The <see cref="Note"/> to load</param>
+        private void LoadNote(Note Note) => NotesTextBox.Text = Note.Notes;
 
 
         /// <summary>
-        /// Sets up the person from the UI
+        /// Sets up the Person from the UI
         /// </summary>
         /// <returns>The <see cref="Person"/> on the UI</returns>
-        private Person PrimePerson() => new Person
+        private Person PrimePerson()
         {
-            Name = PersonNameTextBox.Text,
-            MartialState = GetMartialState(),
-            SiblingState = GetSiblingState(),
-            DateOfBirth = PersonCalendar.SelectedDate ?? DateTime.Now,
-        };
+            return new Person
+            {
+                Name = PersonNameTextBox.Text,
+                MartialState = GetMartialState(),
+                SiblingState = GetSiblingState(),
+                DateOfBirth = PersonCalendar.SelectedDate ?? DateTime.Now,
+                RowVersion = rowVersion
+            };
+        }
 
         private SiblingState GetSiblingState()
         {
@@ -257,6 +279,7 @@ namespace WebApi.Client
                     var json = await response.Content.ReadAsStringAsync();
 
                     var populii = JsonConvert.DeserializeObject<List<Person>>(json);
+                    people.Clear();
 
                     foreach (var item in populii)
                     {
@@ -284,6 +307,12 @@ namespace WebApi.Client
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
         {
             //Megváltozott a "TextBox" tartalma (valamilyen módon)
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
         }
     }
 }

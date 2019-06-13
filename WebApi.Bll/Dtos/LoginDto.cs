@@ -2,7 +2,7 @@
 
 namespace WebApi.Bll.Dtos
 {
-    public class LoginDto
+    public class SignInDto
     {
         [Required]
         public string Email { get; set; }

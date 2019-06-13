@@ -8,6 +8,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Bll", "WebApi.Bll\WebApi.Bll.csproj", "{62EDE2FD-9BA3-44E1-84E9-829F9C7DEC12}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.API", "WebApi.API\WebApi.API.csproj", "{5AF8181B-2389-4363-9431-7582AC7EF135}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AA8E015C-ED5D-4DB2-8E25-182AD53B3134} = {AA8E015C-ED5D-4DB2-8E25-182AD53B3134}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.Client", "WebApi.Client\WebApi.Client.csproj", "{DF72C70B-65EC-49A3-9F76-B2CE0A4AFC4B}"
 EndProject
