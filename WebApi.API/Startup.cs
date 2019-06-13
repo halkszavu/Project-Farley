@@ -138,7 +138,6 @@ namespace WebApi.API
             app.UseMvc();
 
             database.Database.EnsureCreated();
-            velho.Database.EnsureCreated();
         }
     }
 }
