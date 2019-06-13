@@ -77,8 +77,7 @@ namespace WebApi.API
                 options.Password.RequireLowercase = true;
                 options.Password.RequiredLength = 8;
             });
-
-
+            
             services.AddTransient<IPersonService, PersonService>();
             services.AddTransient<INoteService, NoteService>();
             services.AddTransient<IMeetingService, MeetingService>();
@@ -121,6 +120,7 @@ namespace WebApi.API
                     Title = "Duplicate of the same entity found",
                     Status = StatusCodes.Status405MethodNotAllowed,
                 });
+                options.Map<DbUpdateConcurrencyException>(ex=> new ConcurrencyProblemDetails(ex));
             });
 
             services.AddSwaggerDocument();

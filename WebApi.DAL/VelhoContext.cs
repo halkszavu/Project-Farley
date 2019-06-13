@@ -33,6 +33,11 @@ namespace WebApi.DAL
                 .Property(n => n.Time)
                 .HasDefaultValue(DateTime.Now);
 
+            modelBuilder.Entity<Person>()
+                .Property(p => p.RowVersion)
+                .ValueGeneratedOnAddOrUpdate()
+                .IsConcurrencyToken();
+
             #region Seeding
             modelBuilder.Entity<Person>().HasData(
                 new Person
