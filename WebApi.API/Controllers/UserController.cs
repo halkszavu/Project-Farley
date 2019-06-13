@@ -1,15 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using WebApi.Bll.Dtos;
 
 namespace WebApi.API.Controllers
@@ -29,6 +28,11 @@ namespace WebApi.API.Controllers
             config = configuration;
         }
 
+        /// <summary>
+        /// Registers a new user to the database.
+        /// </summary>
+        /// <param name="model">A simple model that contains the username/email and the password</param>
+        /// <returns>JWT token if the creation of the user was successful</returns>
         [HttpPost("register")]
         public async Task<string> Register([FromBody]LoginDto model)
         {
@@ -48,6 +52,11 @@ namespace WebApi.API.Controllers
             throw new Exception("Unknown Error");
         }
 
+        /// <summary>
+        /// Login to the application
+        /// </summary>
+        /// <param name="model">A simple model that contains the username/email and the password</param>
+        /// <returns>JWT token if the login was successful</returns>
         [HttpPost("login")]
         public async Task<string> Login([FromBody] LoginDto model)
         {
