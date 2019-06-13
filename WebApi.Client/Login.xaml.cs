@@ -24,5 +24,19 @@ namespace WebApi.Client
             InitializeComponent();
             ((MainWindow)Application.Current.MainWindow).Token = "";
         }
+
+        private void SignUpButton_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            this.Close();
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            this.Close();
+        }
     }
 }

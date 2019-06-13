@@ -24,14 +24,14 @@ namespace WebApi.Client
     public partial class MainWindow : Window
     {
         public string Token { get; set; }
+        public readonly string Tie = @"http://localhost:58637/api/";
 
-        //private readonly string Tie = @"http://localhost:58637/api/";
-        private readonly string Tie = @"http://localhost:5000/api/";
+        //private readonly string Tie = @"http://localhost:5000/api/";
         
         //henkilöllisyys
         private int henkilo;
         //tapaaminen
-        private int tapa;
+        //private int tapa;
         List<Person> people;
 
         public MainWindow()
@@ -286,6 +286,12 @@ namespace WebApi.Client
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
         {
             //Megváltozott a "TextBox" tartalma (valamilyen módon)
+        }
+
+        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
         }
     }
 }
