@@ -129,7 +129,7 @@ namespace WebApi.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, HermesContext database)
+        public void Configure(IApplicationBuilder app, HermesContext database, VelhoContext velho)
         {
             app.UseProblemDetails();
             app.UseAuthentication();
@@ -138,6 +138,7 @@ namespace WebApi.API
             app.UseMvc();
 
             database.Database.EnsureCreated();
+            velho.Database.EnsureCreated();
         }
     }
 }
