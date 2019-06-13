@@ -34,7 +34,7 @@ namespace WebApi.API.Controllers
         /// <param name="model">A simple model that contains the username/email and the password</param>
         /// <returns>JWT token if the creation of the user was successful</returns>
         [HttpPost("register")]
-        public async Task<string> Register([FromBody]LoginDto model)
+        public async Task<string> Register([FromBody]SignInDto model)
         {
             var user = new IdentityUser
             {
@@ -58,7 +58,7 @@ namespace WebApi.API.Controllers
         /// <param name="model">A simple model that contains the username/email and the password</param>
         /// <returns>JWT token if the login was successful</returns>
         [HttpPost("login")]
-        public async Task<string> Login([FromBody] SignInDto model)
+        public async Task<string> Login([FromBody] LoginDto model)
         {
             var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
 
