@@ -1,17 +1,23 @@
 ﻿using AutoMapper;
 using Hellang.Middleware.ProblemDetails;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Text;
 using WebApi.Bll.Dtos;
-using WebApi.Bll.Services;
 using WebApi.Bll.Exceptions;
+using WebApi.Bll.Services;
 using WebApi.DAL;
 
 namespace WebApi.API
@@ -37,6 +43,41 @@ namespace WebApi.API
                 o.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
                 .ConfigureWarnings(
                     c => c.Throw(RelationalEventId.QueryClientEvaluationWarning)));
+
+            services.AddDbContext<HermesContext>(o =>
+                o.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"]));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<HermesContext>()
+                .AddDefaultTokenProviders();
+
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(cfg =>
+            {
+                cfg.RequireHttpsMetadata = false;
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ClockSkew = TimeSpan.Zero,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"]))
+                };
+            });
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequiredLength = 8;
+            });
+
 
             services.AddTransient<IPersonService, PersonService>();
             services.AddTransient<INoteService, NoteService>();
@@ -86,12 +127,15 @@ namespace WebApi.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, HermesContext database)
         {
             app.UseProblemDetails();
+            app.UseAuthentication();
             app.UseSwagger();
             app.UseSwaggerUi3();
             app.UseMvc();
+
+            database.Database.EnsureCreated();
         }
     }
 }
