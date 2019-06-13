@@ -23,9 +23,11 @@ namespace WebApi.Client
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string Token { get; set; }
+
         //private readonly string Tie = @"http://localhost:58637/api/";
         private readonly string Tie = @"http://localhost:5000/api/";
-
+        
         //henkilöllisyys
         private int henkilo;
         //tapaaminen
