@@ -24,14 +24,14 @@
             <param name="id">Integer meetingId</param>
             <returns>Meeting instance</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.MeetingController.PutAsync(System.Int32,WebApi.Bll.Dtos.Meeting)">
+        <member name="M:WebApi.API.Controllers.MeetingController.PutAsync(System.Int32,WebApi.Bll.Dtos.MeetingDto)">
             <summary>
             Updates the meeting in the id position
             </summary>
             <param name="id">Integer meetingId</param>
             <param name="meeting">Meeting to update to</param>
         </member>
-        <member name="M:WebApi.API.Controllers.MeetingController.Post(System.Int32,WebApi.Bll.Dtos.Meeting)">
+        <member name="M:WebApi.API.Controllers.MeetingController.Post(System.Int32,WebApi.Bll.Dtos.MeetingDto)">
             <summary>
             Creates a meeting with the person
             </summary>
@@ -53,14 +53,14 @@
             <param name="id">Integer personId</param>
             <returns>The node associated with the person</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.NoteController.PostAsync(System.Int32,WebApi.Bll.Dtos.Note)">
+        <member name="M:WebApi.API.Controllers.NoteController.PostAsync(System.Int32,WebApi.Bll.Dtos.NoteDto)">
             <summary>
             Inserts a Note to the specified Person
             </summary>
             <param name="personId">Integer personId</param>
             <param name="note">The note for the person specified</param>
         </member>
-        <member name="M:WebApi.API.Controllers.NoteController.PutAsync(System.Int32,WebApi.Bll.Dtos.Note)">
+        <member name="M:WebApi.API.Controllers.NoteController.PutAsync(System.Int32,WebApi.Bll.Dtos.NoteDto)">
             <summary>
             Updates the Note to the specified Person
             </summary>
@@ -118,21 +118,21 @@
             <param name="name">Name or part of the name of the person</param>
             <returns>Person instance</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.PersonController.PostAsync(WebApi.Entities.Person)">
+        <member name="M:WebApi.API.Controllers.PersonController.PostAsync(WebApi.Bll.Dtos.PersonDto)">
             <summary>
             Inserts a new person into the database
             </summary>
             <param name="person"></param>
             <returns>Person to insert into the database</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.PersonController.ForcePostAsync(WebApi.Entities.Person)">
+        <member name="M:WebApi.API.Controllers.PersonController.ForcePostAsync(WebApi.Bll.Dtos.PersonDto)">
             <summary>
             Inserts a new person into the database, even if a person with the same name exists.
             </summary>
             <param name="person"></param>
             <returns>Person to insert into the database</returns>
         </member>
-        <member name="M:WebApi.API.Controllers.PersonController.PutAsync(System.Int32,WebApi.Entities.Person)">
+        <member name="M:WebApi.API.Controllers.PersonController.PutAsync(System.Int32,WebApi.Bll.Dtos.PersonDto)">
             <summary>
             Updates an existing person in the id position
             </summary>

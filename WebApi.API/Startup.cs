@@ -13,6 +13,12 @@ using WebApi.Bll.Dtos;
 using WebApi.Bll.Services;
 using WebApi.Bll.Exceptions;
 using WebApi.DAL;
+using Microsoft.AspNetCore.Identity;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace WebApi.API
 {
@@ -37,6 +43,32 @@ namespace WebApi.API
                 o.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"])
                 .ConfigureWarnings(
                     c => c.Throw(RelationalEventId.QueryClientEvaluationWarning)));
+
+            services.AddDbContext<HermesContext>(o =>
+                o.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"]));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<HermesContext>()
+                .AddDefaultTokenProviders();
+
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(cfg =>
+            {
+                cfg.RequireHttpsMetadata = false;
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ClockSkew = TimeSpan.Zero,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"]))
+                };
+            });
+
 
             services.AddTransient<IPersonService, PersonService>();
             services.AddTransient<INoteService, NoteService>();
@@ -86,12 +118,15 @@ namespace WebApi.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, HermesContext database)
         {
             app.UseProblemDetails();
+            app.UseAuthentication();
             app.UseSwagger();
             app.UseSwaggerUi3();
             app.UseMvc();
+
+            database.Database.EnsureCreated();
         }
     }
 }

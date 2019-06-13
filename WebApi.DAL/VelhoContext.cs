@@ -11,8 +11,7 @@ namespace WebApi.DAL
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<Note> Notes { get; set; }
 
-        public VelhoContext(DbContextOptions<VelhoContext> options) 
-            : base(options) { }
+        public VelhoContext(DbContextOptions<VelhoContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
