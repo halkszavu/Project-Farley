@@ -38,7 +38,7 @@ namespace WebApi.API.Controllers
         {
             var user = new IdentityUser
             {
-                UserName = model.Email,
+                UserName = model.UserName,
                 Email = model.Email
             };
             var result = await userManager.CreateAsync(user, model.Password);
@@ -85,8 +85,6 @@ namespace WebApi.API.Controllers
             var expires = DateTime.Now.AddDays(2);
 
             var token = new JwtSecurityToken(
-                issuer: "ME",
-                audience: "You",
                 claims: claims,
                 expires: expires,
                 signingCredentials: credit);
