@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using WebApi.Bll.Dtos;
 using WebApi.Bll.Services;
 using WebApi.Entities;
 
@@ -11,6 +13,7 @@ namespace WebApi.API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PersonController : ControllerBase
     {
         private readonly IPersonService personService;
@@ -35,7 +38,7 @@ namespace WebApi.API.Controllers
         /// <returns>Person instance</returns>
         [ApiVersion("2.0")]
         [HttpGet("byId{id}")]
-        public async Task<ActionResult<Person>> GetAsync(int id) => mapper.Map<Person>(await personService.GetPersonAsync(id));
+        public async Task<ActionResult<PersonDto>> GetAsync(int id) => mapper.Map<PersonDto>(await personService.GetPersonAsync(id));
 
         // GET: api/Person/byNamename
         /// <summary>
@@ -45,7 +48,7 @@ namespace WebApi.API.Controllers
         /// <returns>Person instance</returns>
         [ApiVersion("2.0")]
         [HttpGet("byName{name}")]
-        public async Task<ActionResult<Person>> GetAsync(string name) => mapper.Map<Person>(await personService.GetFirstPersonAsync(name));
+        public async Task<ActionResult<PersonDto>> GetAsync(string name) => mapper.Map<PersonDto>(await personService.GetFirstPersonAsync(name));
 
         //POST:api/Person
         /// <summary>
@@ -55,7 +58,7 @@ namespace WebApi.API.Controllers
         /// <returns>Person to insert into the database</returns>
         [ApiVersion("2.0")]
         [HttpPost]
-        public async Task<ActionResult<Person>> PostAsync([FromBody] Person person)
+        public async Task<ActionResult<PersonDto>> PostAsync([FromBody] PersonDto person)
         {
             var created = await personService
                 .InsertPersonAsync(mapper.Map<Person>(person));
@@ -63,7 +66,7 @@ namespace WebApi.API.Controllers
             return CreatedAtAction(
                         nameof(GetAsync),
                         new { id = created.ID },
-                        mapper.Map<Person>(created)
+                        mapper.Map<PersonDto>(created)
                 );
         }
 
@@ -75,7 +78,7 @@ namespace WebApi.API.Controllers
         /// <returns>Person to insert into the database</returns>
         [ApiVersion("2.0")]
         [HttpPost("force")]
-        public async Task<ActionResult<Person>> ForcePostAsync([FromBody] Person person)
+        public async Task<ActionResult<PersonDto>> ForcePostAsync([FromBody] PersonDto person)
         {
             var created = await personService
                 .InsertSamePersonAsync(mapper.Map<Person>(person));
@@ -83,7 +86,7 @@ namespace WebApi.API.Controllers
             return CreatedAtAction(
                         nameof(GetAsync),
                         new { id = created.ID },
-                        mapper.Map<Person>(created)
+                        mapper.Map<PersonDto>(created)
                 );
         }
 
@@ -95,7 +98,7 @@ namespace WebApi.API.Controllers
         /// <param name="person">Person to update to</param>
         [ApiVersion("2.0")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] Person person)
+        public async Task<IActionResult> PutAsync(int id, [FromBody] PersonDto person)
         {
             await personService.UpdatePersonAsync(id, mapper.Map<Person>(person));
             return NoContent();
