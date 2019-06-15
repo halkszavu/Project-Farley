@@ -139,19 +139,5 @@
             <param name="id">Integer personId</param>
             <param name="person">Person to update to</param>
         </member>
-        <member name="M:WebApi.API.Controllers.UserController.Register(WebApi.Bll.Dtos.SignInDto)">
-            <summary>
-            Registers a new user to the database.
-            </summary>
-            <param name="model">A simple model that contains the username/email and the password</param>
-            <returns>JWT token if the creation of the user was successful</returns>
-        </member>
-        <member name="M:WebApi.API.Controllers.UserController.Login(WebApi.Bll.Dtos.LoginDto)">
-            <summary>
-            Login to the application
-            </summary>
-            <param name="model">A simple model that contains the username/email and the password</param>
-            <returns>JWT token if the login was successful</returns>
-        </member>
     </members>
 </doc>
