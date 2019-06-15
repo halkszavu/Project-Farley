@@ -13,7 +13,6 @@ namespace WebApi.API.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class PersonController : ControllerBase
     {
         private readonly IPersonService personService;

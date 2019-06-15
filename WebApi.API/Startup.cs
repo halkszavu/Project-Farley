@@ -44,33 +44,6 @@ namespace WebApi.API
                 .ConfigureWarnings(
                     c => c.Throw(RelationalEventId.QueryClientEvaluationWarning)));
 
-            services.AddDbContext<HermesContext>(o =>
-                o.UseSqlServer(Configuration["ConnectionStrings:IdentityConnection"]));
-
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<HermesContext>()
-                .AddDefaultTokenProviders();
-
-            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(cfg =>
-            {
-                cfg.RequireHttpsMetadata = false;
-                cfg.SaveToken = true;
-                cfg.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ClockSkew = TimeSpan.Zero,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
-
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = true;
@@ -129,15 +102,12 @@ namespace WebApi.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, HermesContext database, VelhoContext velho)
+        public void Configure(IApplicationBuilder app)
         {
             app.UseProblemDetails();
-            app.UseAuthentication();
             app.UseSwagger();
             app.UseSwaggerUi3();
             app.UseMvc();
-
-            database.Database.EnsureCreated();
         }
     }
 }

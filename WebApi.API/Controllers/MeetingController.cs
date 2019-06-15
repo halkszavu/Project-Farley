@@ -12,7 +12,6 @@ namespace WebApi.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class MeetingController : ControllerBase
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

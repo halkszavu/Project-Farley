@@ -10,7 +10,6 @@ namespace WebApi.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class NoteController : ControllerBase
     {
         private readonly INoteService noteService;

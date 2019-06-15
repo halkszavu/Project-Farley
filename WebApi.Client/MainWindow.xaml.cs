@@ -25,10 +25,9 @@ namespace WebApi.Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        public string Token { get; set; }
-        ///public readonly string Tie = @"http://localhost:58637/api/";
+        public readonly string Tie = @"http://localhost:58637/api/";
 
-       public readonly string Tie = @"http://localhost:5000/api/";
+        //public readonly string Tie = @"http://localhost:5000/api/";
         
         //henkilöllisyys
         private int henkilo;
@@ -54,7 +53,6 @@ namespace WebApi.Client
 
             using (var client =  new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var content = new StringContent(JsonConvert.SerializeObject(PrimePerson()),Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(Tie + "Person", content);
 
@@ -75,7 +73,6 @@ namespace WebApi.Client
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var response = await client.GetAsync(new Uri(Tie + $"Person/byName{PersonNameTextBox.Text}"));
 
                 if (response.IsSuccessStatusCode)
@@ -91,7 +88,6 @@ namespace WebApi.Client
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var content = new StringContent(JsonConvert.SerializeObject(PrimePerson()), Encoding.UTF8, "application/json");
                 var response = await client.PutAsync(Tie + "Person", content);
 
@@ -110,7 +106,6 @@ namespace WebApi.Client
             {
                 Note Note = PrimeNote();
                 Note.PersonID = henkilo;
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var content = new StringContent(JsonConvert.SerializeObject(Note), Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(Tie + $"Note", content);
 
@@ -176,7 +171,6 @@ namespace WebApi.Client
 
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var response = await client.GetAsync(new Uri(Tie + $"Note/{Person.ID}"));
 
                 if(response.IsSuccessStatusCode)
@@ -307,12 +301,6 @@ namespace WebApi.Client
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
         {
             //Megváltozott a "TextBox" tartalma (valamilyen módon)
-        }
-
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            Login login = new Login();
-            login.Show();
         }
     }
 }

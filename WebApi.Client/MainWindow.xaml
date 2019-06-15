@@ -121,7 +121,6 @@
                             </TextBlock.RenderTransform>
                         </TextBlock>
                     </Button>
-                    <Button x:Name="LoginButton" Content="Login" Grid.Column="2" HorizontalAlignment="Left" Margin="151,3,0,0" Grid.Row="3" VerticalAlignment="Top" Width="73" Height="24" FontSize="14" Click="LoginButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Name="MeetingTabItem" Header="Találkozás">
