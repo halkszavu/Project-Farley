@@ -39,6 +39,7 @@ namespace WebApi.Client
         public MainWindow()
         {
             InitializeComponent();
+            
             people = new List<Person>();
             PersonListBox.ItemsSource = people;
         }
