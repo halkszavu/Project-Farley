@@ -118,19 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BirthDate" xml:space="preserve">
-    <value>Date of Birth</value>
+    <value>Születési idő</value>
     <comment>BirthDate text</comment>
   </data>
   <data name="Eldest" xml:space="preserve">
-    <value>Eldest</value>
+    <value>Legidősebb</value>
     <comment>Sibling State: Eldest</comment>
   </data>
   <data name="Married" xml:space="preserve">
-    <value>Married</value>
+    <value>Házas</value>
     <comment>Martial State: Married</comment>
   </data>
   <data name="MartialStateGroupBox" xml:space="preserve">
-    <value>Martial state</value>
+    <value>Családi állapot</value>
     <comment>Text for the MartialStateGroupBox bloc</comment>
   </data>
   <data name="MartialStateNARadioButton" xml:space="preserve">
@@ -138,55 +138,55 @@
     <comment>Martial State: N/A</comment>
   </data>
   <data name="MeetingLocation" xml:space="preserve">
-    <value>Meeting Location</value>
+    <value>Helyszín</value>
     <comment>Meeting Location</comment>
   </data>
   <data name="MeetingNotes" xml:space="preserve">
-    <value>Notes</value>
+    <value>Jegyzetek</value>
     <comment>Header for the meeting notes bloc</comment>
   </data>
   <data name="MeetingTabItem" xml:space="preserve">
-    <value>Meeting</value>
+    <value>Találkozás</value>
     <comment>Header for the meetingTab</comment>
   </data>
   <data name="MeetingText" xml:space="preserve">
-    <value>Here you can enter notes for this meeting.</value>
+    <value>Ide lehet írni jegyzeteket a találkozásról.</value>
     <comment>Text in meeting textbox</comment>
   </data>
   <data name="Middle" xml:space="preserve">
-    <value>Middle</value>
+    <value>Középső</value>
     <comment>Sibling State: Middle</comment>
   </data>
   <data name="Notes" xml:space="preserve">
-    <value>Notes</value>
+    <value>Jegyzetek</value>
     <comment>Notes header</comment>
   </data>
   <data name="NotesText" xml:space="preserve">
-    <value>Here you can enter notes for this person.</value>
+    <value>Ide lehet írni jegyzeteket a személyről</value>
     <comment>Text in notes textbox</comment>
   </data>
   <data name="OnlyChild" xml:space="preserve">
-    <value>Only Child</value>
+    <value>Egyke</value>
     <comment>Sibling State: Only child</comment>
   </data>
   <data name="OtherMartialState" xml:space="preserve">
-    <value>Other</value>
+    <value>Egyéb</value>
     <comment>Martial State: Other</comment>
   </data>
   <data name="OtherSiblingState" xml:space="preserve">
-    <value>Other</value>
+    <value>Egyéb</value>
     <comment>Sibling State: Other</comment>
   </data>
   <data name="PersonNameTextBox" xml:space="preserve">
-    <value>Surname Given name</value>
+    <value>Vezetéknév Keresztnév</value>
     <comment>Initial value for the PersonNameTextBox</comment>
   </data>
   <data name="PersonTab" xml:space="preserve">
-    <value>Person</value>
+    <value>Személy</value>
     <comment>Header for the personTab</comment>
   </data>
   <data name="SiblingStateGroupBox" xml:space="preserve">
-    <value>Sibling State</value>
+    <value>Testvéri állapot</value>
     <comment>Text for the SiblingStateGroupBox bloc</comment>
   </data>
   <data name="SiblingStateNARadioButton" xml:space="preserve">
@@ -194,7 +194,7 @@
     <comment>Sibling State: N/A</comment>
   </data>
   <data name="Single" xml:space="preserve">
-    <value>Single</value>
+    <value>Nőtlen/Hajadon</value>
     <comment>Martial State: Single</comment>
   </data>
   <data name="Title" xml:space="preserve">
@@ -202,7 +202,7 @@
     <comment>Name of the application</comment>
   </data>
   <data name="Youngest" xml:space="preserve">
-    <value>Youngest</value>
+    <value>Legfiatalabb</value>
     <comment>Sibling State: Youngest</comment>
   </data>
 </root>
