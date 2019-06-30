@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WebApi.Client"
+        xmlns:lex ="http://wpflocalizeextension.codeplex.com"
+        lex:LocalizeDictionary.DesignCulture="en"
+        lex:ResxLocalizationProvider.DefaultAssembly="WebApi.Client"
+        lex:ResxLocalizationProvider.DefaultDictionary="Strings"
         mc:Ignorable="d"
-        Title="Farley aktakezelő" Height="600" Width="600" Foreground="#FF2332FF" Background="#FFFFD89F" BorderBrush="White" MinWidth="475" MinHeight="500">
+        Title="{lex:Loc Key=Title}" Height="600" Width="600" Foreground="#FF2332FF" Background="#FFFFD89F" BorderBrush="White" MinWidth="475" MinHeight="500">
     <Grid>
         <Grid.RowDefinitions>
         </Grid.RowDefinitions>
@@ -13,7 +17,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TabControl x:Name="FarleyTabControl" Margin="0,0,0,0" Grid.RowSpan="2" SelectionChanged="FarleyTabControl_SelectionChanged">
-            <TabItem Name="PersonTabItem" Header="Személy">
+            <TabItem Name="PersonTabItem" Header="{lex:Loc Key=PersonTab}">
                 <Grid Background="#FFFFFCF7">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="154*"/>
@@ -28,8 +32,8 @@
                         <RowDefinition Height="28"/>
 
                     </Grid.RowDefinitions>
-                    <TextBox x:Name="PersonNameTextBox" Height="23" Margin="0,0,4,0" TextWrapping="Wrap" Text="Vezetéknév Adott név Keresztnév" VerticalAlignment="Top" BorderBrush="#FF320A0A" Grid.ColumnSpan="3" AcceptsReturn="False"/>
-                    <GroupBox Grid.Column="2" Header="Születési dátum" Margin="4,30,4,10" Grid.ColumnSpan="2">
+                    <TextBox x:Name="PersonNameTextBox" Height="23" Margin="0,0,4,0" TextWrapping="Wrap" Text="{lex:Loc}" VerticalAlignment="Top" BorderBrush="#FF320A0A" Grid.ColumnSpan="3" AcceptsReturn="False"/>
+                    <GroupBox Grid.Column="2" Header="{lex:Loc Key=BirthDate}" Margin="4,30,4,10" Grid.ColumnSpan="2">
                         <Calendar x:Name="PersonCalendar" Grid.Column="2" HorizontalAlignment="Right" Margin="0,-8,-10,-9" RenderTransformOrigin="0.5,0.5" Width="190">
                             <Calendar.RenderTransform>
                                 <TransformGroup>
@@ -41,26 +45,26 @@
                             </Calendar.RenderTransform>
                         </Calendar>
                     </GroupBox>
-                    <GroupBox x:Name="MartialStateGroupBox" Header="Családi státusz" Margin="10,35,5,10">
+                    <GroupBox x:Name="MartialStateGroupBox" Header="{lex:Loc}" Margin="10,35,5,10">
                         <StackPanel>
-                            <RadioButton Name="MartialStateNARadioButton" Content="N/A" IsChecked="True"/>
-                            <RadioButton Name="MartialStateSingleRadioButton" Content="Egyedülálló" />
-                            <RadioButton Name="MartialStateMarriedRadioButton" Content="Házas"/>
-                            <RadioButton x:Name="MartialStateOtherRadioButton" Content="Egyéb"/>
+                            <RadioButton Name="MartialStateNARadioButton" Content="{lex:Loc}" IsChecked="True"/>
+                            <RadioButton Name="MartialStateSingleRadioButton" Content="{lex:Loc Key=Single}" />
+                            <RadioButton Name="MartialStateMarriedRadioButton" Content="{lex:Loc Key=Married}"/>
+                            <RadioButton x:Name="MartialStateOtherRadioButton" Content="{lex:Loc Key=OtherMartialState}"/>
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox x:Name="SiblingStateGroupBox" Header="Testvéri státusz" Margin="5,35,5,10" Grid.Column="1">
+                    <GroupBox x:Name="SiblingStateGroupBox" Header="{lex:Loc}" Margin="5,35,5,10" Grid.Column="1">
                         <StackPanel>
-                            <RadioButton Name="SiblingStateNARadioButton" Content="N/A" IsChecked="True"/>
-                            <RadioButton Name="SiblingStateEldestRadioButton" Content="Legidősebb"/>
-                            <RadioButton Name="SiblingStateMiddleRadioButton" Content="Középső"/>
-                            <RadioButton Name="SiblingStateYoungestRadioButton" Content="Legfiatalabb"/>
-                            <RadioButton Name="SiblingStateOnlyChildRadioButton" Content="Egyke"/>
-                            <RadioButton Name="SiblingStateOtherRadioButton" Content="Egyéb"/>
+                            <RadioButton Name="SiblingStateNARadioButton" Content="{lex:Loc}" IsChecked="True"/>
+                            <RadioButton Name="SiblingStateEldestRadioButton" Content="{lex:Loc Key=Eldest}"/>
+                            <RadioButton Name="SiblingStateMiddleRadioButton" Content="{lex:Loc Key=Middle}"/>
+                            <RadioButton Name="SiblingStateYoungestRadioButton" Content="{lex:Loc Key=Youngest}"/>
+                            <RadioButton Name="SiblingStateOnlyChildRadioButton" Content="{lex:Loc Key=OnlyChild}"/>
+                            <RadioButton Name="SiblingStateOtherRadioButton" Content="{lex:Loc Key=OtherSiblingState}"/>
                         </StackPanel>
                     </GroupBox>
-                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Jegyzetek" VerticalAlignment="Top" Width="538" Grid.ColumnSpan="4" Height="16"/>
-                    <TextBox x:Name="NotesTextBox" Margin="10,6,10,5" Grid.Row="2" TextWrapping="Wrap" AcceptsReturn="True" Text="TextBox" Grid.ColumnSpan="4" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" SpellCheck.IsEnabled="True"/>
+                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" TextWrapping="Wrap" Text="{lex:Loc Key=Notes}" VerticalAlignment="Top" Width="538" Grid.ColumnSpan="4" Height="16"/>
+                    <TextBox x:Name="NotesTextBox" Margin="10,6,10,5" Grid.Row="2" TextWrapping="Wrap" AcceptsReturn="True" Text="{lex:Loc Key=NotesText}" Grid.ColumnSpan="4" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" SpellCheck.IsEnabled="True"/>
                     <Button x:Name="NewPersonButton" Grid.Column="3" HorizontalAlignment="Left" Margin="3,0,24,0" VerticalAlignment="Top" Width="23" Height="23" Click="NewPersonButton_Click">
                         <TextBlock TextAlignment="Center" Text="+" RenderTransformOrigin="0.5,0.65">
                             <TextBlock.RenderTransform>
@@ -123,7 +127,7 @@
                     </Button>
                 </Grid>
             </TabItem>
-            <TabItem Name="MeetingTabItem" Header="Találkozás">
+            <TabItem Name="MeetingTabItem" Header="{lex:Loc}">
                 <Grid Background="#FFFFFCF7">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -144,8 +148,8 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <GroupBox Grid.Row="2" Grid.Column="0" Header="Jegyzetek">
-                        <TextBox x:Name="MeetingNotesTextBox" Margin="10,10,10,2" TextWrapping="Wrap" Text="TextBox" Grid.Row="1" AcceptsReturn="True" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" SpellCheck.IsEnabled="True"/>
+                    <GroupBox Grid.Row="2" Grid.Column="0" Header="{lex:Loc Key=MeetingNotes}">
+                        <TextBox x:Name="MeetingNotesTextBox" Margin="10,10,10,2" TextWrapping="Wrap" Text="{lex:Loc Key=MeetingText}" Grid.Row="1" AcceptsReturn="True" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" SpellCheck.IsEnabled="True"/>
                     </GroupBox>
                     <Button x:Name="NewMeetingButton" HorizontalAlignment="Left" Margin="66,4,0,0" VerticalAlignment="Top" Width="23" Height="23" Click="NewMeetingButton_Click" Grid.Row="1">
                         <TextBlock TextAlignment="Center" Text="+" RenderTransformOrigin="0.5,0.65">
@@ -183,8 +187,8 @@
                             </TextBlock.RenderTransform>
                         </TextBlock>
                     </Button>
-                    <TextBox x:Name="MeetingPlaceTextBox" Height="23" Margin="59,10,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
-                    <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,11,0,0" TextWrapping="Wrap" Text="Helyszín" VerticalAlignment="Top" Height="16" Width="44"/>
+                    <TextBox x:Name="MeetingPlaceTextBox" Height="23" Margin="129,10,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,11,0,0" TextWrapping="Wrap" Text="{lex:Loc Key=MeetingLocation}" VerticalAlignment="Top" Height="16"/>
                     <ListBox x:Name="MeetingAttendeesListBox" Margin="10,38,10,1"/>
                     <TextBox x:Name="textBox" Grid.Column="1" Height="23" Margin="3,4,10,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" KeyUp="TextBox_KeyUp"/>
 
